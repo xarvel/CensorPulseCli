@@ -1,0 +1,31 @@
+name: release
+
+# Tag `vX.Y.Z` → static binaries for the usual platforms, a SHA256SUMS file
+# and a GitHub release. scripts/install.sh prefers these assets when a
+# release exists, and falls back to building from source.
+on:
+  push:
+    tags: ["v[0-9]*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5.6.0
+        with: { go-version-file: go.mod, cache-dependency-path: go.sum }
+      - run: go vet ./... && go test ./... -count=1 -p 1
+      - name: cross-compile
+        run: |
+          VERSION="${GITHUB_REF_NAME}" make cross
+          cd dist && sha256sum cpprobe-* > SHA256SUMS && cat SHA256SUMS
+      - uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
+        with:
+          name: ${{ github.ref_name }}
+          files: |
+            dist/cpprobe-*
+            dist/SHA256SUMS
+          generate_release_notes: true

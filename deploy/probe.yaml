@@ -1,0 +1,58 @@
+# CensorPulse probe server configuration (schema 1).
+# Every port here must be free on the host and open in your firewall / cloud
+# security group for the matching protocol. Defaults are fine for most setups.
+schema_version: 1
+
+# "" = every address, dual-stack when the host has IPv6. "0.0.0.0" = IPv4 only.
+bind: ""
+
+# Keys are created on first start and must survive restarts: the SPKI pin and
+# the WireGuard public key are what clients trust. Kept in the compose volume.
+data_dir: /var/lib/cpprobe/data
+
+# Pinned-TLS control API (sessions, attempts, observations, DoH). Never a
+# test port; TCP/443 stays free for the TLS tests.
+control_port: 8443
+
+# Generic TCP dispatcher: envelope echo, random-bytes control, HTTP, TLS,
+# OpenVPN, SOCKS5 (1080), VLESS inside TLS, Tor ORPort/DirPort shapes
+# (9001 / 9030), obfs4 (any port; 8388 by default in the client plan).
+tcp_ports: [80, 443, 1194, 8080, 8388, 4433, 1080, 9001, 9030]
+
+# Generic UDP dispatcher: envelope echo (cookie), random-bytes control,
+# OpenVPN, WireGuard, IKEv2 (500 / 4500 NAT-T + ESP-in-UDP), L2TP (1701),
+# STUN and DTLS as WebRTC/Snowflake use them (3478), QUIC/HTTP3 (multiplexed
+# when quic: true).
+udp_ports: [443, 1194, 51820, 8388, 4433, 500, 4500, 1701, 3478]
+
+# DNS for the synthetic probe.invalid zone only (UDP + TCP on each port).
+# If port 53 cannot be freed on your host, use e.g. [5353]; clients adapt.
+dns_ports: [53]
+
+# DNS over TLS; 0 disables.
+dot_port: 853
+
+# Zone the DNS responder is authoritative for. The default never resolves in
+# the public DNS, which is fine for the direct DNS tests. To also test the
+# client's own system resolver (dns.system, "which recursor really serves
+# me"), delegate a real subdomain to this host's IP (NS record) and name it
+# here, e.g. dns_zone: probe.example.org
+dns_zone: probe.invalid
+
+quic: true
+
+# Empty = every test this build knows. Restrict to reduce exposure, e.g.
+# enabled_tests: [tcp.echo, tcp.payload.random, tls.sni]
+enabled_tests: []
+
+limits:
+  sessions_per_minute: 10       # per source IP
+  attempts_per_10min: 1200      # per source IP; a full 3-round scan uses ~700 (reservations + echoes)
+  session_ttl_seconds: 600      # max 600
+  retention_hours: 24           # observations are dropped after this
+  max_observations: 100000      # in-memory ring
+  idle_timeout_seconds: 5       # TCP flows with no bytes are closed after this
+  bulk_mb_per_day: 64           # per source IP, tcp.bulk uploads + downloads; 0 or unset keeps the 64 MiB default (the quota cannot be disabled)
+
+log:
+  level: info                   # info | debug (one line per flow, no payloads)

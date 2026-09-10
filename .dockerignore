@@ -1,0 +1,7 @@
+bin/
+dist/
+data/
+deploy/data/
+report-*.json
+*.log
+.git/
