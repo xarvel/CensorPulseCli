@@ -1,0 +1,196 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"openvpn.reset","role":"variant","variant":"udp","transport":"udp","port":1194,"outcome":"ok","merged":"ok","server":true},
+    {"test":"openvpn.session","role":"variant","variant":"udp+control+data","transport":"udp","port":1194,"outcome":"session_cut","merged":"uplink_drop_after_handshake","server":true,"detail":{"ctl_recv":"0","ctl_sent":"3","server_ctl_seen":"0"}},
+    {"test":"openvpn.reset","role":"variant","variant":"udp+tls-auth","transport":"udp","port":1194,"outcome":"ok","merged":"ok","server":true},
+    {"test":"openvpn.session","role":"variant","variant":"udp+tls-auth+data","transport":"udp","port":1194,"outcome":"session_cut","merged":"uplink_drop_after_handshake","server":true,"detail":{"ctl_recv":"3","ctl_sent":"3","data_first_loss":"0","data_recv":"0","data_sent":"3","server_ctl_seen":"3","server_data_seen":"1"}},
+    {"test":"openvpn.reset","role":"variant","variant":"tcp+tls-auth","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"openvpn.session","role":"variant","variant":"tcp+tls-auth+data","transport":"tcp","port":443,"outcome":"session_cut","merged":"uplink_drop_after_handshake","server":true,"detail":{"ctl_recv":"3","ctl_sent":"3","data_first_loss":"3","data_recv":"2","data_sent":"12","server_data_seen":"12"}},
+    {"test":"openvpn.reset","role":"variant","variant":"tcp+tls-crypt","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"openvpn.session","role":"variant","variant":"tcp+tls-crypt+data","transport":"tcp","port":443,"outcome":"session_cut","merged":"uplink_drop_after_handshake","server":true,"detail":{"ctl_recv":"2","ctl_sent":"3","data_recv":"5","data_sent":"12"}}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "openvpn.reset",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "tcp+tls-auth",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "openvpn.reset",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "tcp+tls-crypt",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "openvpn.reset",
+        "transport": "udp",
+        "port": 1194,
+        "variant": "udp",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "openvpn.reset",
+        "transport": "udp",
+        "port": 1194,
+        "variant": "udp+tls-auth",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "openvpn.session",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "tcp+tls-auth+data",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "session_cut": 1
+        },
+        "merged": {
+          "uplink_drop_after_handshake": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "openvpn.session",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "tcp+tls-crypt+data",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "session_cut": 1
+        },
+        "merged": {
+          "uplink_drop_after_handshake": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "openvpn.session",
+        "transport": "udp",
+        "port": 1194,
+        "variant": "udp+control+data",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "session_cut": 1
+        },
+        "merged": {
+          "uplink_drop_after_handshake": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "openvpn.session",
+        "transport": "udp",
+        "port": 1194,
+        "variant": "udp+tls-auth+data",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "session_cut": 1
+        },
+        "merged": {
+          "uplink_drop_after_handshake": 1
+        },
+        "server_saw": 1
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "openvpn_session_cut_suspected",
+        "subject": "openvpn.session tcp/443 tcp+tls-auth+data",
+        "confidence": "low",
+        "evidence": [
+          "openvpn.session tcp/443 tcp+tls-auth+data: 0/1 ok, dominant=uplink_drop_after_handshake, server_saw=1",
+          "handshake on the same port passed: openvpn.reset tcp/443 tcp+tls-auth: 1/1 ok, dominant=ok, server_saw=1",
+          "data packets answered: median 2 of 12",
+          "control channel passed (median 3 of 3 control packets answered), data channel cut after 3 data packets",
+          "server saw median 12 data packets: data stopped on the way to the server"
+        ]
+      },
+      {
+        "kind": "openvpn_session_cut_suspected",
+        "subject": "openvpn.session tcp/443 tcp+tls-crypt+data",
+        "confidence": "low",
+        "evidence": [
+          "openvpn.session tcp/443 tcp+tls-crypt+data: 0/1 ok, dominant=uplink_drop_after_handshake, server_saw=1",
+          "handshake on the same port passed: openvpn.reset tcp/443 tcp+tls-crypt: 1/1 ok, dominant=ok, server_saw=1",
+          "data packets answered: median 5 of 12",
+          "control channel: median 2 of 3 control packets answered"
+        ]
+      },
+      {
+        "kind": "openvpn_session_cut_suspected",
+        "subject": "openvpn.session udp/1194 udp+control+data",
+        "confidence": "low",
+        "evidence": [
+          "openvpn.session udp/1194 udp+control+data: 0/1 ok, dominant=uplink_drop_after_handshake, server_saw=1",
+          "handshake on the same port passed: openvpn.reset udp/1194 udp: 1/1 ok, dominant=ok, server_saw=1",
+          "the control channel itself was cut right after the reset: median 0 of 3 control packets answered",
+          "server saw median 0 control packets"
+        ]
+      },
+      {
+        "kind": "openvpn_session_cut_suspected",
+        "subject": "openvpn.session udp/1194 udp+tls-auth+data",
+        "confidence": "low",
+        "evidence": [
+          "openvpn.session udp/1194 udp+tls-auth+data: 0/1 ok, dominant=uplink_drop_after_handshake, server_saw=1",
+          "handshake on the same port passed: openvpn.reset udp/1194 udp+tls-auth: 1/1 ok, dominant=ok, server_saw=1",
+          "data packets answered: median 0 of 3",
+          "control channel passed (median 3 of 3 control packets answered), data channel cut: not one data packet came back",
+          "server saw median 3 control packets",
+          "server saw median 1 data packets: data stopped on the way to the server"
+        ]
+      }
+    ],
+    "summary": "low confidence only: openvpn_session_cut_suspected×4"
+  }
+}

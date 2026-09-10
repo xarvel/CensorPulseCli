@@ -1,0 +1,155 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":51820,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":51820,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":51820,"outcome":"ok","merged":"ok","server":true},
+    {"test":"wireguard.init","role":"variant","variant":"noise-ik","transport":"udp","port":51820,"outcome":"ok","merged":"ok","server":true},
+    {"test":"wireguard.init","role":"variant","variant":"noise-ik","transport":"udp","port":51820,"outcome":"ok","merged":"ok","server":true},
+    {"test":"wireguard.init","role":"variant","variant":"noise-ik","transport":"udp","port":51820,"outcome":"ok","merged":"ok","server":true},
+    {"test":"wireguard.session","role":"variant","variant":"noise-ik+data","transport":"udp","port":51820,"outcome":"session_cut","merged":"uplink_drop_after_handshake","server":true,"detail":{"data_first_loss":"3","data_recv":"2","data_sent":"12","server_data_seen":"2"}},
+    {"test":"wireguard.session","role":"variant","variant":"noise-ik+data","transport":"udp","port":51820,"outcome":"session_cut","merged":"uplink_drop_after_handshake","server":true,"detail":{"data_first_loss":"3","data_recv":"2","data_sent":"12","server_data_seen":"2"}},
+    {"test":"wireguard.session","role":"variant","variant":"noise-ik+data","transport":"udp","port":51820,"outcome":"session_cut","merged":"uplink_drop_after_handshake","server":true,"detail":{"data_first_loss":"3","data_recv":"2","data_sent":"12","server_data_seen":"2"}},
+    {"test":"udp.packets","role":"variant","variant":"cp1-32x32","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.packets","role":"variant","variant":"cp1-32x32","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.packets","role":"variant","variant":"cp1-32x32","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"wireguard.init","role":"variant","variant":"noise-ik","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"wireguard.init","role":"variant","variant":"noise-ik","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"wireguard.init","role":"variant","variant":"noise-ik","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"wireguard.session","role":"variant","variant":"noise-ik+data","transport":"udp","port":443,"outcome":"session_cut","merged":"uplink_drop_after_handshake","server":true,"detail":{"data_first_loss":"3","data_recv":"2","data_sent":"12","server_data_seen":"2"}},
+    {"test":"wireguard.session","role":"variant","variant":"noise-ik+data","transport":"udp","port":443,"outcome":"session_cut","merged":"uplink_drop_after_handshake","server":true,"detail":{"data_first_loss":"3","data_recv":"2","data_sent":"12","server_data_seen":"2"}},
+    {"test":"wireguard.session","role":"variant","variant":"noise-ik+data","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 51820,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "udp.packets",
+        "transport": "udp",
+        "port": 443,
+        "variant": "cp1-32x32",
+        "role": "variant",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "wireguard.init",
+        "transport": "udp",
+        "port": 443,
+        "variant": "noise-ik",
+        "role": "variant",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "wireguard.init",
+        "transport": "udp",
+        "port": 51820,
+        "variant": "noise-ik",
+        "role": "variant",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "wireguard.session",
+        "transport": "udp",
+        "port": 443,
+        "variant": "noise-ik+data",
+        "role": "variant",
+        "total": 3,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1,
+          "session_cut": 2
+        },
+        "merged": {
+          "ok": 1,
+          "uplink_drop_after_handshake": 2
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "wireguard.session",
+        "transport": "udp",
+        "port": 51820,
+        "variant": "noise-ik+data",
+        "role": "variant",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "session_cut": 3
+        },
+        "merged": {
+          "uplink_drop_after_handshake": 3
+        },
+        "server_saw": 3
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "wireguard_session_cut_suspected",
+        "subject": "wireguard.session udp/443 noise-ik+data",
+        "confidence": "high",
+        "evidence": [
+          "wireguard.session udp/443 noise-ik+data: 1/3 ok, dominant=uplink_drop_after_handshake, server_saw=3",
+          "handshake on the same port passed: wireguard.init udp/443 noise-ik: 3/3 ok, dominant=ok, server_saw=3",
+          "data packets answered: median 2 of 12",
+          "cut after 3 data packets",
+          "server saw median 2 data packets: data stopped on the way to the server",
+          "baseline on the same port passed: udp.packets udp/443 cp1-32x32: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      },
+      {
+        "kind": "wireguard_session_cut_suspected",
+        "subject": "wireguard.session udp/51820 noise-ik+data",
+        "confidence": "high",
+        "evidence": [
+          "wireguard.session udp/51820 noise-ik+data: 0/3 ok, dominant=uplink_drop_after_handshake, server_saw=3",
+          "handshake on the same port passed: wireguard.init udp/51820 noise-ik: 3/3 ok, dominant=ok, server_saw=3",
+          "data packets answered: median 2 of 12",
+          "cut after 3 data packets",
+          "server saw median 2 data packets: data stopped on the way to the server",
+          "baseline on the same port passed: udp.echo udp/51820 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      }
+    ],
+    "summary": "wireguard_session_cut_suspected×2"
+  }
+}

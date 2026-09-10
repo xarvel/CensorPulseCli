@@ -1,0 +1,493 @@
+{
+  "mode": "standalone",
+  "attempts": [
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.dns","role":"baseline","variant":"wikipedia.org","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"control","domain":"wikipedia.org","order":"0"}},
+    {"test":"dest.tcp","role":"baseline","variant":"wikipedia.org","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"control","domain":"wikipedia.org","order":"0"}},
+    {"test":"dest.tls","role":"baseline","variant":"wikipedia.org","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"control","domain":"wikipedia.org","order":"0"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:wikipedia.org","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"control","domain":"wikipedia.org","order":"0"}},
+    {"test":"dest.tls","role":"control","variant":"absent:wikipedia.org","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"control","domain":"wikipedia.org","order":"0"}},
+    {"test":"dest.dns","role":"variant","variant":"gateway.discord.gg","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"messenger","domain":"gateway.discord.gg","order":"1"}},
+    {"test":"dest.tcp","role":"variant","variant":"gateway.discord.gg","transport":"tcp","port":443,"outcome":"skipped","merged":"skipped","detail":{"category":"messenger","domain":"gateway.discord.gg","order":"1"}},
+    {"test":"dest.tls","role":"variant","variant":"gateway.discord.gg","transport":"tcp","port":443,"outcome":"skipped","merged":"skipped","detail":{"category":"messenger","domain":"gateway.discord.gg","order":"1"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:gateway.discord.gg","transport":"tcp","port":443,"outcome":"skipped","merged":"skipped","detail":{"category":"messenger","domain":"gateway.discord.gg","order":"1"}},
+    {"test":"dest.tls","role":"control","variant":"absent:gateway.discord.gg","transport":"tcp","port":443,"outcome":"skipped","merged":"skipped","detail":{"category":"messenger","domain":"gateway.discord.gg","order":"1"}},
+    {"test":"dest.dns","role":"variant","variant":"play.google.com","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"store","domain":"play.google.com","order":"2"}},
+    {"test":"dest.tcp","role":"variant","variant":"play.google.com","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"store","domain":"play.google.com","order":"2"}},
+    {"test":"dest.tls","role":"variant","variant":"play.google.com","transport":"tcp","port":443,"outcome":"skipped","merged":"skipped","detail":{"category":"store","domain":"play.google.com","order":"2"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:play.google.com","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"payload_timeout","detail":{"category":"store","domain":"play.google.com","order":"2"}},
+    {"test":"dest.tls","role":"control","variant":"absent:play.google.com","transport":"tcp","port":443,"outcome":"skipped","merged":"skipped","detail":{"category":"store","domain":"play.google.com","order":"2"}},
+    {"test":"dest.dns","role":"variant","variant":"claude.ai","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"ai","domain":"claude.ai","order":"3"}},
+    {"test":"dest.tcp","role":"variant","variant":"claude.ai","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"ai","domain":"claude.ai","order":"3"}},
+    {"test":"dest.tls","role":"variant","variant":"claude.ai","transport":"tcp","port":443,"outcome":"skipped","merged":"skipped","detail":{"category":"ai","domain":"claude.ai","order":"3"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:claude.ai","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"ai","domain":"claude.ai","order":"3"}},
+    {"test":"dest.http","role":"variant","variant":"claude.ai","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"ai","domain":"claude.ai","order":"3"}},
+    {"test":"dest.tcp","role":"variant","variant":"youtube.com","transport":"tcp","port":443,"outcome":"server_error","merged":"server_error","detail":{"category":"video","domain":"youtube.com","local_error":"no_route","order":"4"}},
+    {"test":"dest.tcp","role":"variant","variant":"youtube.com","transport":"tcp","port":443,"outcome":"server_error","merged":"server_error","detail":{"category":"video","domain":"youtube.com","local_error":"no_route","order":"4"}},
+    {"test":"dest.tls","role":"variant","variant":"youtube.com","transport":"tcp","port":443,"outcome":"server_error","merged":"server_error","detail":{"category":"video","domain":"youtube.com","local_error":"no_route","order":"4"}},
+    {"test":"dest.tls","role":"variant","variant":"youtube.com","transport":"tcp","port":443,"outcome":"server_error","merged":"server_error","detail":{"category":"video","domain":"youtube.com","local_error":"no_route","order":"4"}},
+    {"test":"dest.dns","role":"variant","variant":"youtube.com","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"video","domain":"youtube.com","order":"4"}},
+    {"test":"dest.dns","role":"variant","variant":"youtube.com","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"video","domain":"youtube.com","order":"4"}}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "claude.ai",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "gateway.discord.gg",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "play.google.com",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "wikipedia.org",
+        "role": "baseline",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "youtube.com",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.http",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "claude.ai",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "anycast",
+        "role": "control",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "claude.ai",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "gateway.discord.gg",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "skipped": 1
+        },
+        "merged": {
+          "skipped": 1
+        },
+        "server_saw": 0,
+        "unmeasured": 1
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "play.google.com",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "wikipedia.org",
+        "role": "baseline",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "youtube.com",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "server_error": 2
+        },
+        "merged": {
+          "server_error": 2
+        },
+        "server_saw": 0,
+        "unmeasured": 2
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "absent:gateway.discord.gg",
+        "role": "control",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "skipped": 1
+        },
+        "merged": {
+          "skipped": 1
+        },
+        "server_saw": 0,
+        "unmeasured": 1
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "absent:play.google.com",
+        "role": "control",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "skipped": 1
+        },
+        "merged": {
+          "skipped": 1
+        },
+        "server_saw": 0,
+        "unmeasured": 1
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "absent:wikipedia.org",
+        "role": "control",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "claude.ai",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "skipped": 1
+        },
+        "merged": {
+          "skipped": 1
+        },
+        "server_saw": 0,
+        "unmeasured": 1
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "decoy:claude.ai",
+        "role": "control",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "decoy:gateway.discord.gg",
+        "role": "control",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "skipped": 1
+        },
+        "merged": {
+          "skipped": 1
+        },
+        "server_saw": 0,
+        "unmeasured": 1
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "decoy:play.google.com",
+        "role": "control",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 1
+        },
+        "merged": {
+          "payload_timeout": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "decoy:wikipedia.org",
+        "role": "control",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "gateway.discord.gg",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "skipped": 1
+        },
+        "merged": {
+          "skipped": 1
+        },
+        "server_saw": 0,
+        "unmeasured": 1
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "play.google.com",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "skipped": 1
+        },
+        "merged": {
+          "skipped": 1
+        },
+        "server_saw": 0,
+        "unmeasured": 1
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "wikipedia.org",
+        "role": "baseline",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "youtube.com",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "server_error": 2
+        },
+        "merged": {
+          "server_error": 2
+        },
+        "server_saw": 0,
+        "unmeasured": 2
+      }
+    ],
+    "verdicts": null,
+    "summary": "clean: every test family passed on every port; no differential observed",
+    "destinations": [
+      {
+        "domain": "wikipedia.org",
+        "category": "control",
+        "verdict": "clear",
+        "layers": {
+          "absent": "ok",
+          "decoy": "ok",
+          "dns": "ok",
+          "tcp": "ok",
+          "tls": "ok"
+        }
+      },
+      {
+        "domain": "gateway.discord.gg",
+        "category": "messenger",
+        "verdict": "inconclusive",
+        "layers": {
+          "absent": "skipped",
+          "decoy": "skipped",
+          "dns": "ok",
+          "tcp": "skipped",
+          "tls": "skipped"
+        }
+      },
+      {
+        "domain": "play.google.com",
+        "category": "store",
+        "verdict": "inconclusive",
+        "layers": {
+          "absent": "skipped",
+          "decoy": "payload_timeout",
+          "dns": "ok",
+          "tcp": "ok",
+          "tls": "skipped"
+        }
+      },
+      {
+        "domain": "claude.ai",
+        "category": "ai",
+        "verdict": "clear",
+        "layers": {
+          "decoy": "ok",
+          "dns": "ok",
+          "http": "ok",
+          "tcp": "ok",
+          "tls": "skipped"
+        }
+      },
+      {
+        "domain": "youtube.com",
+        "category": "video",
+        "verdict": "inconclusive",
+        "layers": {
+          "dns": "ok",
+          "tcp": "server_error",
+          "tls": "server_error"
+        }
+      }
+    ]
+  }
+}

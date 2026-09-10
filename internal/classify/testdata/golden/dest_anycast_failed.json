@@ -1,0 +1,105 @@
+{
+  "mode": "standalone",
+  "attempts": [
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"connect_timeout"},
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"connect_timeout"},
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"connect_timeout"},
+    {"test":"dest.dns","role":"variant","variant":"a.example","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"a.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"a.example","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"connect_timeout","detail":{"category":"news","domain":"a.example"}},
+    {"test":"dest.tls","role":"variant","variant":"a.example","transport":"tcp","port":443,"outcome":"skipped","merged":"skipped","detail":{"category":"news","domain":"a.example"}}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "a.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "a.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "connect_timeout": 1
+        },
+        "merged": {
+          "connect_timeout": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "anycast",
+        "role": "control",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "connect_timeout": 3
+        },
+        "merged": {
+          "connect_timeout": 3
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "a.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "skipped": 1
+        },
+        "merged": {
+          "skipped": 1
+        },
+        "server_saw": 0,
+        "unmeasured": 1
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "control_failed_inconclusive",
+        "subject": "dest.tcp tcp/443 anycast",
+        "confidence": "low",
+        "evidence": [
+          "dest.tcp tcp/443 anycast: 0/3 ok, dominant=connect_timeout",
+          "no clean anycast address connects on :443: the transport layers of the real destinations cannot be told from an outage"
+        ]
+      }
+    ],
+    "summary": "low confidence only: control_failed_inconclusive×1",
+    "destinations": [
+      {
+        "domain": "a.example",
+        "category": "news",
+        "verdict": "degraded",
+        "layers": {
+          "dns": "ok",
+          "tcp": "connect_timeout",
+          "tls": "skipped"
+        }
+      }
+    ]
+  }
+}

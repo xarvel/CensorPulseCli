@@ -1,0 +1,170 @@
+{
+  "mode": "standalone",
+  "attempts": [
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.dns","role":"variant","variant":"a.example","transport":"udp","port":53,"outcome":"dns_answer_mismatch","merged":"dns_answer_mismatch","detail":{"category":"news","domain":"a.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"a.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"a.example"}},
+    {"test":"dest.dns","role":"variant","variant":"b.example","transport":"udp","port":53,"outcome":"dns_answer_mismatch","merged":"dns_answer_mismatch","detail":{"category":"news","domain":"b.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"b.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"b.example"}},
+    {"test":"dest.dns","role":"variant","variant":"c.example","transport":"udp","port":53,"outcome":"dns_answer_mismatch","merged":"dns_answer_mismatch","detail":{"category":"news","domain":"c.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"c.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"c.example"}}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "a.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "dns_answer_mismatch": 1
+        },
+        "merged": {
+          "dns_answer_mismatch": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "b.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "dns_answer_mismatch": 1
+        },
+        "merged": {
+          "dns_answer_mismatch": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "c.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "dns_answer_mismatch": 1
+        },
+        "merged": {
+          "dns_answer_mismatch": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "a.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "anycast",
+        "role": "control",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "b.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "c.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "system_resolver_unreliable_suspected",
+        "subject": "dest.dns udp/53",
+        "confidence": "low",
+        "evidence": [
+          "3 of 3 sites: the system resolver's answer is not the one the trusted DoH resolvers give, and no site resolved cleanly through it",
+          "a failing, captive or wholesale-substituted resolver cannot be told from per-site poisoning without a name it resolves correctly"
+        ]
+      }
+    ],
+    "summary": "low confidence only: system_resolver_unreliable_suspected×1",
+    "destinations": [
+      {
+        "domain": "a.example",
+        "category": "news",
+        "verdict": "degraded",
+        "layers": {
+          "dns": "dns_answer_mismatch",
+          "tcp": "ok"
+        }
+      },
+      {
+        "domain": "b.example",
+        "category": "news",
+        "verdict": "degraded",
+        "layers": {
+          "dns": "dns_answer_mismatch",
+          "tcp": "ok"
+        }
+      },
+      {
+        "domain": "c.example",
+        "category": "news",
+        "verdict": "degraded",
+        "layers": {
+          "dns": "dns_answer_mismatch",
+          "tcp": "ok"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+/bin/
+/dist/
+/data/
+/deploy/data/
+report-*.json
+sites-*.json
+check.json
+*.log
+.DS_Store

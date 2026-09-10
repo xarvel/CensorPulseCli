@@ -1,0 +1,145 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"wireguard.init","role":"variant","variant":"noise-ik","transport":"udp","port":51820,"outcome":"ok","merged":"ok","server":true},
+    {"test":"wireguard.session","role":"variant","variant":"noise-ik+data","transport":"udp","port":51820,"outcome":"session_cut","merged":"uplink_drop_after_handshake","server":true,"detail":{"server_data_seen":"2"}},
+    {"test":"ikev2.init","role":"variant","variant":"plain","transport":"udp","port":500,"outcome":"ok","merged":"ok","server":true},
+    {"test":"ikev2.session","role":"variant","variant":"plain","transport":"udp","port":500,"outcome":"session_cut","merged":"downlink_drop_after_handshake","server":true,"detail":{"server_data_seen":"12"}},
+    {"test":"l2tp.init","role":"variant","variant":"v2","transport":"udp","port":1701,"outcome":"ok","merged":"ok","server":true},
+    {"test":"l2tp.session","role":"variant","variant":"v2","transport":"udp","port":1701,"outcome":"session_cut","merged":"uplink_delayed_past_deadline","server":true,"detail":{"server_data_seen":"12"}}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "ikev2.init",
+        "transport": "udp",
+        "port": 500,
+        "variant": "plain",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "ikev2.session",
+        "transport": "udp",
+        "port": 500,
+        "variant": "plain",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "session_cut": 1
+        },
+        "merged": {
+          "downlink_drop_after_handshake": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "l2tp.init",
+        "transport": "udp",
+        "port": 1701,
+        "variant": "v2",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "l2tp.session",
+        "transport": "udp",
+        "port": 1701,
+        "variant": "v2",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "session_cut": 1
+        },
+        "merged": {
+          "uplink_delayed_past_deadline": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "wireguard.init",
+        "transport": "udp",
+        "port": 51820,
+        "variant": "noise-ik",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "wireguard.session",
+        "transport": "udp",
+        "port": 51820,
+        "variant": "noise-ik+data",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "session_cut": 1
+        },
+        "merged": {
+          "uplink_drop_after_handshake": 1
+        },
+        "server_saw": 1
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "ikev2_session_cut_suspected",
+        "subject": "ikev2.session udp/500 plain",
+        "confidence": "low",
+        "evidence": [
+          "ikev2.session udp/500 plain: 0/1 ok, dominant=downlink_drop_after_handshake, server_saw=1",
+          "handshake on the same port passed: ikev2.init udp/500 plain: 1/1 ok, dominant=ok, server_saw=1",
+          "server saw median 12 data packets: the server answered every packet it saw; the answers were dropped on the way back"
+        ]
+      },
+      {
+        "kind": "l2tp_session_cut_suspected",
+        "subject": "l2tp.session udp/1701 v2",
+        "confidence": "low",
+        "evidence": [
+          "l2tp.session udp/1701 v2: 0/1 ok, dominant=uplink_delayed_past_deadline, server_saw=1",
+          "handshake on the same port passed: l2tp.init udp/1701 v2: 1/1 ok, dominant=ok, server_saw=1",
+          "server saw median 12 data packets: the server saw the data only after the client had given up: lost first, retransmitted later"
+        ]
+      },
+      {
+        "kind": "wireguard_session_cut_suspected",
+        "subject": "wireguard.session udp/51820 noise-ik+data",
+        "confidence": "low",
+        "evidence": [
+          "wireguard.session udp/51820 noise-ik+data: 0/1 ok, dominant=uplink_drop_after_handshake, server_saw=1",
+          "handshake on the same port passed: wireguard.init udp/51820 noise-ik: 1/1 ok, dominant=ok, server_saw=1",
+          "server saw median 2 data packets: data stopped on the way to the server"
+        ]
+      }
+    ],
+    "summary": "low confidence only: ikev2_session_cut_suspected×1, l2tp_session_cut_suspected×1, wireguard_session_cut_suspected×1"
+  }
+}

@@ -1,0 +1,222 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"socks5.connect","role":"baseline","variant":"noauth","transport":"tcp","port":1080,"outcome":"ok","merged":"ok","server":true},
+    {"test":"socks5.session","role":"variant","variant":"noauth","transport":"tcp","port":1080,"outcome":"midstream_eof","merged":"stalled_after_server_saw_it","server":true,"detail":{"server_data_seen":"1"}},
+    {"test":"vless.reality","role":"control","variant":"benign","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"vless.reality","role":"variant","variant":"reality:www.microsoft.com","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"vless.session","role":"control","variant":"benign","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"vless.session","role":"variant","variant":"reality:www.microsoft.com","transport":"tcp","port":443,"outcome":"session_cut","merged":"connect_diverged_middlebox_or_misattributed","server":true,"detail":{"server_data_seen":"0"}},
+    {"test":"obfs4.handshake","role":"variant","variant":"ntor-shaped","transport":"tcp","port":8443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"obfs4.session","role":"variant","variant":"ntor-shaped","transport":"tcp","port":8443,"outcome":"midstream_reset","merged":"rst_injected_or_path_reset","server":true,"detail":{"server_data_seen":"4"}},
+    {"test":"tor.handshake","role":"variant","variant":"tor-hello+tor-cert","transport":"tcp","port":9001,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tor.link","role":"variant","variant":"tor-hello+tor-cert","transport":"tcp","port":9001,"outcome":"session_cut","merged":"uplink_drop_after_handshake","server":true}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "obfs4.handshake",
+        "transport": "tcp",
+        "port": 8443,
+        "variant": "ntor-shaped",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "obfs4.session",
+        "transport": "tcp",
+        "port": 8443,
+        "variant": "ntor-shaped",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "midstream_reset": 1
+        },
+        "merged": {
+          "rst_injected_or_path_reset": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "socks5.connect",
+        "transport": "tcp",
+        "port": 1080,
+        "variant": "noauth",
+        "role": "baseline",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "socks5.session",
+        "transport": "tcp",
+        "port": 1080,
+        "variant": "noauth",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "midstream_eof": 1
+        },
+        "merged": {
+          "stalled_after_server_saw_it": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "tor.handshake",
+        "transport": "tcp",
+        "port": 9001,
+        "variant": "tor-hello+tor-cert",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "tor.link",
+        "transport": "tcp",
+        "port": 9001,
+        "variant": "tor-hello+tor-cert",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "session_cut": 1
+        },
+        "merged": {
+          "uplink_drop_after_handshake": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "vless.reality",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "benign",
+        "role": "control",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "vless.reality",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "reality:www.microsoft.com",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "vless.session",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "benign",
+        "role": "control",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "vless.session",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "reality:www.microsoft.com",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "session_cut": 1
+        },
+        "merged": {
+          "connect_diverged_middlebox_or_misattributed": 1
+        },
+        "server_saw": 1
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "obfs4_session_cut_suspected",
+        "subject": "obfs4.session tcp/8443 ntor-shaped",
+        "confidence": "low",
+        "evidence": [
+          "obfs4.session tcp/8443 ntor-shaped: 0/1 ok, dominant=rst_injected_or_path_reset, server_saw=1",
+          "handshake on the same port passed: obfs4.handshake tcp/8443 ntor-shaped: 1/1 ok, dominant=ok, server_saw=1",
+          "server saw median 4 data packets: rst_injected_or_path_reset"
+        ]
+      },
+      {
+        "kind": "socks5_session_cut_suspected",
+        "subject": "socks5.session tcp/1080 noauth",
+        "confidence": "low",
+        "evidence": [
+          "socks5.session tcp/1080 noauth: 0/1 ok, dominant=stalled_after_server_saw_it, server_saw=1",
+          "handshake on the same port passed: socks5.connect tcp/1080 noauth: 1/1 ok, dominant=ok, server_saw=1",
+          "server saw median 1 data packets: the server saw the first packet; which direction lost the rest is unknown"
+        ]
+      },
+      {
+        "kind": "tor.link_session_cut_suspected",
+        "subject": "tor.link tcp/9001 tor-hello+tor-cert",
+        "confidence": "low",
+        "evidence": [
+          "tor.link tcp/9001 tor-hello+tor-cert: 0/1 ok, dominant=uplink_drop_after_handshake, server_saw=1",
+          "handshake on the same port passed: tor.handshake tcp/9001 tor-hello+tor-cert: 1/1 ok, dominant=ok, server_saw=1"
+        ]
+      },
+      {
+        "kind": "vless_session_cut_suspected",
+        "subject": "vless.session tcp/443 reality:www.microsoft.com",
+        "confidence": "low",
+        "evidence": [
+          "vless.session tcp/443 reality:www.microsoft.com: 0/1 ok, dominant=connect_diverged_middlebox_or_misattributed, server_saw=1",
+          "handshake on the same port passed: vless.reality tcp/443 reality:www.microsoft.com: 1/1 ok, dominant=ok, server_saw=1",
+          "server saw median 0 data packets: the client never completed the TCP handshake, yet an empty connection from its address was accepted"
+        ]
+      }
+    ],
+    "summary": "low confidence only: obfs4_session_cut_suspected×1, socks5_session_cut_suspected×1, tor.link_session_cut_suspected×1, vless_session_cut_suspected×1"
+  }
+}

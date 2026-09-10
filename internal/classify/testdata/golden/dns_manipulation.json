@@ -1,0 +1,109 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"dns.udp","role":"baseline","variant":"TXT","transport":"udp","port":53,"outcome":"ok","merged":"ok","server":true},
+    {"test":"dns.udp","role":"baseline","variant":"TXT","transport":"udp","port":53,"outcome":"ok","merged":"ok","server":true},
+    {"test":"dns.udp","role":"baseline","variant":"TXT","transport":"udp","port":53,"outcome":"dns_answer_mismatch","merged":"downlink_modified","server":true},
+    {"test":"dns.udp","role":"variant","variant":"trigger:www.youtube.com","transport":"udp","port":53,"outcome":"dns_injected_race","merged":"injected","server":true},
+    {"test":"dns.udp","role":"variant","variant":"trigger:www.youtube.com","transport":"udp","port":53,"outcome":"dns_injected_race","merged":"injected","server":true},
+    {"test":"dns.udp","role":"variant","variant":"trigger:www.youtube.com","transport":"udp","port":53,"outcome":"dns_injected_race","merged":"injected","server":true},
+    {"test":"dns.system","role":"variant","variant":"whoami","transport":"udp","port":0,"outcome":"dns_answer_mismatch","merged":"dns_answer_mismatch"},
+    {"test":"dns.system","role":"variant","variant":"whoami","transport":"udp","port":0,"outcome":"dns_answer_mismatch","merged":"dns_answer_mismatch"}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "dns.system",
+        "transport": "udp",
+        "port": 0,
+        "variant": "whoami",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "dns_answer_mismatch": 2
+        },
+        "merged": {
+          "dns_answer_mismatch": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dns.udp",
+        "transport": "udp",
+        "port": 53,
+        "variant": "TXT",
+        "role": "baseline",
+        "total": 3,
+        "ok": 2,
+        "outcomes": {
+          "dns_answer_mismatch": 1,
+          "ok": 2
+        },
+        "merged": {
+          "downlink_modified": 1,
+          "ok": 2
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "dns.udp",
+        "transport": "udp",
+        "port": 53,
+        "variant": "trigger:www.youtube.com",
+        "role": "variant",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "dns_injected_race": 3
+        },
+        "merged": {
+          "injected": 3
+        },
+        "server_saw": 3
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "dns_manipulation_suspected",
+        "subject": "dns.udp udp/53 TXT",
+        "confidence": "medium",
+        "evidence": [
+          "dns.udp udp/53 TXT: 2/3 ok, dominant=ok, server_saw=3",
+          "answer content did not match the authoritative nonce answer",
+          "mechanism: 1/3 attempts merged as downlink_modified"
+        ]
+      },
+      {
+        "kind": "dns_manipulation_suspected",
+        "subject": "dns.udp udp/53 trigger:www.youtube.com",
+        "confidence": "medium",
+        "evidence": [
+          "dns.udp udp/53 trigger:www.youtube.com: 0/3 ok, dominant=injected, server_saw=3",
+          "answer content did not match the authoritative nonce answer",
+          "mechanism: 3/3 attempts merged as injected"
+        ]
+      },
+      {
+        "kind": "dns_qtype_policy_suspected",
+        "subject": "dns.udp udp/53 trigger:www.youtube.com",
+        "confidence": "medium",
+        "evidence": [
+          "dns.udp udp/53 trigger:www.youtube.com: 0/3 ok, dominant=injected, server_saw=3",
+          "passing baseline: dns.udp udp/53 TXT: 2/3 ok, dominant=ok, server_saw=3"
+        ]
+      },
+      {
+        "kind": "system_resolver_manipulation_suspected",
+        "subject": "dns.system udp/0 whoami",
+        "confidence": "medium",
+        "evidence": [
+          "dns.system udp/0 whoami: 0/2 ok, dominant=dns_answer_mismatch, server_saw=0",
+          "answer content did not match the authoritative nonce answer"
+        ]
+      }
+    ],
+    "summary": "dns_manipulation_suspected×2, dns_qtype_policy_suspected×1, system_resolver_manipulation_suspected×1"
+  }
+}

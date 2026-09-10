@@ -1,0 +1,219 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tls.sni","role":"baseline","variant":"benign","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.sni","role":"baseline","variant":"benign","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.sni","role":"baseline","variant":"benign","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.sni","role":"variant","variant":"trigger:www.youtube.com","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"rst_injected_or_path_reset"},
+    {"test":"tls.sni","role":"variant","variant":"trigger:www.youtube.com","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"rst_injected_or_path_reset"},
+    {"test":"tls.sni","role":"variant","variant":"trigger:www.youtube.com","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"rst_injected_or_path_reset"},
+    {"test":"tls.sni","role":"control","variant":"absent","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tls.sni","role":"control","variant":"absent","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tls.alpn","role":"baseline","variant":"http/1.1","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.alpn","role":"variant","variant":"h2","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tls.version","role":"baseline","variant":"1.3","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.version","role":"variant","variant":"1.2","transport":"tcp","port":443,"outcome":"tls_alert","merged":"uplink_drop_or_route_failure"},
+    {"test":"tls.fingerprint","role":"baseline","variant":"chrome","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.fingerprint","role":"baseline","variant":"chrome","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.fingerprint","role":"variant","variant":"firefox","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tls.fingerprint","role":"variant","variant":"firefox","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "tls.alpn",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "h2",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 1
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tls.alpn",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "http/1.1",
+        "role": "baseline",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "tls.fingerprint",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "chrome",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tls.fingerprint",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "firefox",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tls.sni",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "absent",
+        "role": "control",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tls.sni",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "benign",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "tls.sni",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "trigger:www.youtube.com",
+        "role": "variant",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "midstream_reset": 3
+        },
+        "merged": {
+          "rst_injected_or_path_reset": 3
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tls.version",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "1.2",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "tls_alert": 1
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tls.version",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "1.3",
+        "role": "baseline",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "alpn_policy_suspected",
+        "subject": "tls.alpn tcp/443 h2",
+        "confidence": "low",
+        "evidence": [
+          "tls.alpn tcp/443 h2: 0/1 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing baseline: tls.alpn tcp/443 http/1.1: 1/1 ok, dominant=ok, server_saw=1"
+        ]
+      },
+      {
+        "kind": "fingerprint_blocking_suspected",
+        "subject": "tls.fingerprint tcp/443 firefox",
+        "confidence": "medium",
+        "evidence": [
+          "tls.fingerprint tcp/443 firefox: 0/2 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing baseline: tls.fingerprint tcp/443 chrome: 2/2 ok, dominant=ok, server_saw=2"
+        ]
+      },
+      {
+        "kind": "sni_or_host_blocking_suspected",
+        "subject": "tls.sni tcp/443 trigger:www.youtube.com",
+        "confidence": "high",
+        "evidence": [
+          "tls.sni tcp/443 trigger:www.youtube.com: 0/3 ok, dominant=rst_injected_or_path_reset, server_saw=0",
+          "passing baseline: tls.sni tcp/443 benign: 3/3 ok, dominant=ok, server_saw=3",
+          "mechanism: 3/3 attempts merged as rst_injected_or_path_reset"
+        ]
+      },
+      {
+        "kind": "sni_or_host_policy_suspected",
+        "subject": "tls.sni tcp/443 absent",
+        "confidence": "medium",
+        "evidence": [
+          "tls.sni tcp/443 absent: 0/2 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing baseline: tls.sni tcp/443 benign: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      },
+      {
+        "kind": "tls_version_policy_suspected",
+        "subject": "tls.version tcp/443 1.2",
+        "confidence": "low",
+        "evidence": [
+          "tls.version tcp/443 1.2: 0/1 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing baseline: tls.version tcp/443 1.3: 1/1 ok, dominant=ok, server_saw=1"
+        ]
+      }
+    ],
+    "summary": "fingerprint_blocking_suspected×1, sni_or_host_blocking_suspected×1, sni_or_host_policy_suspected×1; low confidence: alpn_policy_suspected×1, tls_version_policy_suspected×1"
+  }
+}

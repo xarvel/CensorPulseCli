@@ -1,0 +1,80 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":80,"outcome":"connect_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":80,"outcome":"connect_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "connect_timeout": 3
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 3
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 80,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "connect_timeout": 2
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 3
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 3
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "endpoint_blocking_suspected",
+        "subject": "all baseline echo tests",
+        "confidence": "medium",
+        "evidence": [
+          "control plane reachable but every TCP and UDP echo failed",
+          "tcp.echo tcp/443 cp1-64: 0/3 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "tcp.echo tcp/80 cp1-64: 0/2 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "udp.echo udp/443 cp1-64: 0/3 ok, dominant=uplink_drop_or_route_failure, server_saw=0"
+        ]
+      }
+    ],
+    "summary": "endpoint_blocking_suspected×1"
+  }
+}

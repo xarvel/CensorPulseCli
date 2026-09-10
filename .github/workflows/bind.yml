@@ -1,0 +1,91 @@
+name: bind
+
+# Tag `vX.Y.Z` → the mobile bindings of the engine (bind/) as release
+# assets next to the CLI binaries of release.yml: Cpprobe.xcframework.zip
+# (iOS device + simulator), cpprobe.aar + cpprobe-sources.jar (Android
+# arm64-v8a, armeabi-v7a, x86_64) and SHA256SUMS.bind for the three.
+# gomobile and gobind are tool dependencies of go.mod, so this builds with
+# the same version as `make bind-ios` / `make bind-android` on a laptop.
+# A manual run from a branch builds both (version = short SHA) and
+# publishes nothing: the way to check the build before a tag.
+on:
+  push:
+    tags: ["v[0-9]*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  # r28c: links 16 KB-aligned segments by default (Google Play requirement
+  # for Android 15+ targets); the Makefile passes the alignment too, and
+  # scripts/check-16k.sh verifies the AAR before it is uploaded.
+  NDK_VERSION: 28.2.13676358
+
+jobs:
+  android:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with: { go-version-file: go.mod, cache-dependency-path: go.sum }
+      - name: install NDK ${{ env.NDK_VERSION }}
+        run: yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --install "ndk;$NDK_VERSION" >/dev/null
+      - name: build cpprobe.aar
+        # ANDROID_SDK_ROOT is a runner variable, not part of the `env` context:
+        # resolve the NDK path in the shell.
+        run: |
+          export ANDROID_NDK_HOME="$ANDROID_SDK_ROOT/ndk/$NDK_VERSION"
+          test -f "$ANDROID_NDK_HOME/meta/platforms.json" || { echo "NDK not at $ANDROID_NDK_HOME"; ls "$ANDROID_SDK_ROOT/ndk"; exit 1; }
+          if [ "$GITHUB_REF_TYPE" = tag ]; then export VERSION="$GITHUB_REF_NAME"; fi
+          make bind-android
+          ls -la dist
+      - name: 16 KB page alignment of every ABI
+        run: sh scripts/check-16k.sh dist/cpprobe.aar
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: android
+          path: |
+            dist/cpprobe.aar
+            dist/cpprobe-sources.jar
+          if-no-files-found: error
+
+  ios:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with: { go-version-file: go.mod, cache-dependency-path: go.sum }
+      - name: build Cpprobe.xcframework
+        run: |
+          if [ "$GITHUB_REF_TYPE" = tag ]; then export VERSION="$GITHUB_REF_NAME"; fi
+          make bind-ios
+          cd dist && zip -qr Cpprobe.xcframework.zip Cpprobe.xcframework && ls -la
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ios
+          path: dist/Cpprobe.xcframework.zip
+          if-no-files-found: error
+
+  publish:
+    needs: [android, ios]
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with: { name: android, path: dist }
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with: { name: ios, path: dist }
+      # release.yml writes SHA256SUMS for the CLI binaries; the bindings get
+      # their own file so the two workflows never race for one asset.
+      - run: cd dist && sha256sum cpprobe.aar cpprobe-sources.jar Cpprobe.xcframework.zip > SHA256SUMS.bind && cat SHA256SUMS.bind
+      - uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
+        with:
+          name: ${{ github.ref_name }}
+          files: |
+            dist/cpprobe.aar
+            dist/cpprobe-sources.jar
+            dist/Cpprobe.xcframework.zip
+            dist/SHA256SUMS.bind

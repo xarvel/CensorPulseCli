@@ -1,0 +1,73 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"connect_ms":40},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"connect_ms":40},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"connect_ms":40},
+    {"test":"tls.sni","role":"baseline","variant":"benign","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.sni","role":"baseline","variant":"benign","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.sni","role":"baseline","variant":"benign","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.sni","role":"variant","variant":"trigger:www.youtube.com","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.sni","role":"variant","variant":"trigger:www.youtube.com","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.sni","role":"variant","variant":"trigger:www.youtube.com","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure","detail":{"cancelled":"true"}},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure","detail":{"transient":"true"}}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "tls.sni",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "benign",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "tls.sni",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "trigger:www.youtube.com",
+        "role": "variant",
+        "total": 3,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2,
+          "payload_timeout": 1
+        },
+        "merged": {
+          "ok": 2,
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 2
+      }
+    ],
+    "verdicts": null,
+    "summary": "clean: every test family passed on every port; no differential observed"
+  }
+}

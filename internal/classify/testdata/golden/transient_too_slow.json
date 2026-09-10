@@ -1,0 +1,138 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true,"round":1,"started_at":"2026-09-13T06:30:00Z"},
+    {"test":"http.host","role":"baseline","variant":"benign","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true,"round":1,"started_at":"2026-09-13T06:30:01Z"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"round":1,"started_at":"2026-09-13T06:30:02Z"},
+    {"test":"tls.sni","role":"baseline","variant":"benign","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"round":1,"started_at":"2026-09-13T06:30:03Z"},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true,"round":1,"started_at":"2026-09-13T06:30:04Z"},
+    {"test":"quic.v1","role":"variant","variant":"h3","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true,"round":1,"started_at":"2026-09-13T06:30:05Z"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":80,"outcome":"connect_timeout","merged":"uplink_drop_or_route_failure","round":2,"started_at":"2026-09-13T06:31:00Z"},
+    {"test":"http.host","role":"baseline","variant":"benign","transport":"tcp","port":80,"outcome":"connect_timeout","merged":"uplink_drop_or_route_failure","round":2,"started_at":"2026-09-13T06:31:04Z"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"uplink_drop_or_route_failure","round":2,"started_at":"2026-09-13T06:31:08Z"},
+    {"test":"tls.sni","role":"baseline","variant":"benign","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"uplink_drop_or_route_failure","round":2,"started_at":"2026-09-13T06:31:12Z"},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"connect_timeout","merged":"uplink_drop_or_route_failure","round":2,"started_at":"2026-09-13T06:31:16Z"},
+    {"test":"quic.v1","role":"variant","variant":"h3","transport":"udp","port":443,"outcome":"connect_timeout","merged":"uplink_drop_or_route_failure","round":2,"started_at":"2026-09-13T06:31:21Z"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true,"round":3,"started_at":"2026-09-13T06:32:00Z"},
+    {"test":"http.host","role":"baseline","variant":"benign","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true,"round":3,"started_at":"2026-09-13T06:32:01Z"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"round":3,"started_at":"2026-09-13T06:32:02Z"},
+    {"test":"tls.sni","role":"baseline","variant":"benign","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"round":3,"started_at":"2026-09-13T06:32:03Z"},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true,"round":3,"started_at":"2026-09-13T06:32:04Z"},
+    {"test":"quic.v1","role":"variant","variant":"h3","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true,"round":3,"started_at":"2026-09-13T06:32:05Z"}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "http.host",
+        "transport": "tcp",
+        "port": 80,
+        "variant": "benign",
+        "role": "baseline",
+        "total": 3,
+        "ok": 2,
+        "outcomes": {
+          "connect_timeout": 1,
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2,
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "quic.v1",
+        "transport": "udp",
+        "port": 443,
+        "variant": "h3",
+        "role": "variant",
+        "total": 3,
+        "ok": 2,
+        "outcomes": {
+          "connect_timeout": 1,
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2,
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 2,
+        "outcomes": {
+          "connect_timeout": 1,
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2,
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 80,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 2,
+        "outcomes": {
+          "connect_timeout": 1,
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2,
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tls.sni",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "benign",
+        "role": "baseline",
+        "total": 3,
+        "ok": 2,
+        "outcomes": {
+          "connect_timeout": 1,
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2,
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 2,
+        "outcomes": {
+          "connect_timeout": 1,
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2,
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 2
+      }
+    ],
+    "verdicts": null,
+    "summary": "clean: every test family passed on every port; no differential observed"
+  }
+}

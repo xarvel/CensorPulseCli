@@ -1,0 +1,205 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":51820,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":51820,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":51820,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.payload.random","role":"control","variant":"random-64","transport":"udp","port":51820,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.payload.random","role":"control","variant":"random-64","transport":"udp","port":51820,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.payload.random","role":"control","variant":"random-64","transport":"udp","port":51820,"outcome":"ok","merged":"ok","server":true},
+    {"test":"wireguard.init","role":"variant","variant":"noise-ik","transport":"udp","port":51820,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"wireguard.init","role":"variant","variant":"noise-ik","transport":"udp","port":51820,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"wireguard.init","role":"variant","variant":"noise-ik","transport":"udp","port":51820,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"wireguard.session","role":"variant","variant":"noise-ik+data","transport":"udp","port":51820,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"wireguard.session","role":"variant","variant":"noise-ik+data","transport":"udp","port":51820,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"wireguard.session","role":"variant","variant":"noise-ik+data","transport":"udp","port":51820,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"quic.v1","role":"variant","variant":"h3","transport":"udp","port":443,"outcome":"quic_no_response","merged":"uplink_drop_or_route_failure"},
+    {"test":"quic.v1","role":"variant","variant":"h3","transport":"udp","port":443,"outcome":"quic_no_response","merged":"uplink_drop_or_route_failure"},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":1194,"outcome":"ok","merged":"ok","server":true},
+    {"test":"openvpn.reset","role":"variant","variant":"udp+tls-auth","transport":"udp","port":1194,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"openvpn.reset","role":"variant","variant":"udp+tls-crypt","transport":"udp","port":1194,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "openvpn.reset",
+        "transport": "udp",
+        "port": 1194,
+        "variant": "udp+tls-auth",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 1
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "openvpn.reset",
+        "transport": "udp",
+        "port": 1194,
+        "variant": "udp+tls-crypt",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 1
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "quic.v1",
+        "transport": "udp",
+        "port": 443,
+        "variant": "h3",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "quic_no_response": 2
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 1194,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 51820,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "udp.payload.random",
+        "transport": "udp",
+        "port": 51820,
+        "variant": "random-64",
+        "role": "control",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "wireguard.init",
+        "transport": "udp",
+        "port": 51820,
+        "variant": "noise-ik",
+        "role": "variant",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 3
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 3
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "wireguard.session",
+        "transport": "udp",
+        "port": 51820,
+        "variant": "noise-ik+data",
+        "role": "variant",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 3
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 3
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "protocol_blocking_suspected",
+        "subject": "openvpn.reset udp/1194",
+        "confidence": "low",
+        "evidence": [
+          "openvpn.reset udp/1194 udp+tls-auth: 0/1 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing echo control: udp.echo udp/1194 cp1-64: 1/1 ok, dominant=ok, server_saw=1"
+        ]
+      },
+      {
+        "kind": "protocol_blocking_suspected",
+        "subject": "quic.v1 udp/443",
+        "confidence": "medium",
+        "evidence": [
+          "quic.v1 udp/443 h3: 0/2 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing echo control: udp.echo udp/443 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      },
+      {
+        "kind": "protocol_blocking_suspected",
+        "subject": "wireguard.init udp/51820",
+        "confidence": "high",
+        "evidence": [
+          "wireguard.init udp/51820 noise-ik: 0/3 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing echo control: udp.echo udp/51820 cp1-64: 3/3 ok, dominant=ok, server_saw=3",
+          "passing random control: udp.payload.random udp/51820 random-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      }
+    ],
+    "summary": "protocol_blocking_suspected×2; low confidence: protocol_blocking_suspected×1"
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"round":1,"started_at":"2026-09-13T06:30:01Z","done_ms":90},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"round":2,"started_at":"2026-09-13T06:31:01Z","done_ms":90},
+    {"test":"tls.fingerprint","role":"baseline","variant":"android","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"round":1,"started_at":"2026-09-13T06:30:02Z","done_ms":400},
+    {"test":"tls.fingerprint","role":"baseline","variant":"android","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"round":2,"started_at":"2026-09-13T06:31:02Z","done_ms":400},
+    {"test":"tls.fingerprint","role":"variant","variant":"firefox","transport":"tcp","port":443,"outcome":"server_error","merged":"server_error","round":1,"started_at":"2026-09-13T06:30:10Z","done_ms":7800,"error":"Post \"https://‹server›:8443/v1/session/x/attempt\": read tcp ‹local›->‹server›:8443: read: software caused connection abort"},
+    {"test":"tls.sni","role":"baseline","variant":"benign","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"round":1,"started_at":"2026-09-13T06:30:12Z","done_ms":300},
+    {"test":"dest.tls","role":"variant","variant":"wikipedia.org","transport":"tcp","port":443,"outcome":"midstream_eof","merged":"midstream_eof","round":1,"started_at":"2026-09-13T06:30:15Z","done_ms":2449,"error":"read tcp ‹local›->185.15.59.224:443: read: software caused connection abort","detail":{"category":"control","domain":"wikipedia.org"}},
+    {"test":"dns.udp","role":"baseline","variant":"TXT","transport":"udp","port":53,"outcome":"server_error","merged":"server_error","round":1,"started_at":"2026-09-13T06:30:18Z","done_ms":2,"detail":{"local_error":"eperm"}},
+    {"test":"dest.dns","role":"variant","variant":"github.com","transport":"udp","port":53,"outcome":"inconclusive","merged":"inconclusive","round":1,"started_at":"2026-09-13T06:30:19Z","done_ms":1500,"detail":{"category":"vcs","domain":"github.com","system_error":"resolver error 1: android.system.ErrnoException: resNetworkResult failed: ECONNREFUSED (Connection refused)"}},
+    {"test":"tls.fingerprint","role":"variant","variant":"chrome","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure","round":1,"started_at":"2026-09-13T06:30:19Z","done_ms":1500},
+    {"test":"dest.tls","role":"variant","variant":"play.google.com","transport":"tcp","port":443,"outcome":"skipped","merged":"skipped","round":1,"started_at":"2026-09-13T06:30:19Z","done_ms":1,"detail":{"category":"store","domain":"play.google.com"}},
+    {"test":"dest.dns","role":"variant","variant":"play.google.com","transport":"udp","port":53,"outcome":"ok","merged":"ok","round":1,"started_at":"2026-09-13T06:30:40Z","done_ms":900,"detail":{"category":"store","domain":"play.google.com"}},
+    {"test":"dest.tcp","role":"variant","variant":"play.google.com","transport":"tcp","port":443,"outcome":"ok","merged":"ok","round":1,"started_at":"2026-09-13T06:30:41Z","done_ms":70,"detail":{"category":"store","domain":"play.google.com"}},
+    {"test":"dest.dns","role":"variant","variant":"wikipedia.org","transport":"udp","port":53,"outcome":"ok","merged":"ok","round":1,"started_at":"2026-09-13T06:30:42Z","done_ms":800,"detail":{"category":"control","domain":"wikipedia.org"}},
+    {"test":"dest.tcp","role":"variant","variant":"wikipedia.org","transport":"tcp","port":443,"outcome":"ok","merged":"ok","round":1,"started_at":"2026-09-13T06:30:43Z","done_ms":90,"detail":{"category":"control","domain":"wikipedia.org"}}
+  ],
+  "flagged_transient": [4,6,7,8,9,10],
+  "want": {
+    "cells": [
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "play.google.com",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "wikipedia.org",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "play.google.com",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "wikipedia.org",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tls.fingerprint",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "android",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tls.sni",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "benign",
+        "role": "baseline",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      }
+    ],
+    "verdicts": null,
+    "summary": "clean: every test family passed on every port; no differential observed",
+    "notes": [
+      "transient outage: the host itself cut the scan off the network between +9s and +20s of the scan (4 failures of its own: econnaborted×2, eperm×1, resolver_blocked×1); the 6 attempts that failed in flight then are flagged detail.transient=true and left out of the cells"
+    ],
+    "destinations": [
+      {
+        "domain": "github.com",
+        "category": "vcs",
+        "verdict": "inconclusive",
+        "layers": {
+          "dns": "skipped"
+        }
+      },
+      {
+        "domain": "play.google.com",
+        "category": "store",
+        "verdict": "inconclusive",
+        "layers": {
+          "dns": "ok",
+          "tcp": "ok",
+          "tls": "skipped"
+        }
+      },
+      {
+        "domain": "wikipedia.org",
+        "category": "control",
+        "verdict": "inconclusive",
+        "layers": {
+          "dns": "ok",
+          "tcp": "ok",
+          "tls": "skipped"
+        }
+      }
+    ]
+  }
+}

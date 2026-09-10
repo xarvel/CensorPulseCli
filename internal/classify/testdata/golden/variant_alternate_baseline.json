@@ -1,0 +1,117 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.fingerprint","role":"baseline","variant":"chrome","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tls.fingerprint","role":"baseline","variant":"chrome","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tls.fingerprint","role":"baseline","variant":"chrome","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tls.fingerprint","role":"variant","variant":"firefox","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tls.fingerprint","role":"variant","variant":"firefox","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tls.fingerprint","role":"variant","variant":"firefox","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tls.fingerprint","role":"variant","variant":"edge","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.fingerprint","role":"variant","variant":"edge","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.fingerprint","role":"variant","variant":"edge","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.fingerprint","role":"variant","variant":"golang","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.fingerprint","role":"variant","variant":"golang","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.fingerprint","role":"variant","variant":"golang","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "tls.fingerprint",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "chrome",
+        "role": "baseline",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 3
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 3
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tls.fingerprint",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "edge",
+        "role": "variant",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "tls.fingerprint",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "firefox",
+        "role": "variant",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 3
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 3
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tls.fingerprint",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "golang",
+        "role": "variant",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "fingerprint_blocking_suspected",
+        "subject": "tls.fingerprint tcp/443 firefox",
+        "confidence": "high",
+        "evidence": [
+          "tls.fingerprint tcp/443 firefox: 0/3 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing baseline: tls.fingerprint tcp/443 edge: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      }
+    ],
+    "summary": "fingerprint_blocking_suspected×1"
+  }
+}

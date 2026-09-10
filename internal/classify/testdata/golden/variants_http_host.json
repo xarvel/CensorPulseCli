@@ -1,0 +1,84 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"http.host","role":"baseline","variant":"benign","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true},
+    {"test":"http.host","role":"baseline","variant":"benign","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true},
+    {"test":"http.host","role":"variant","variant":"trigger:www.youtube.com","transport":"tcp","port":80,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"http.host","role":"variant","variant":"trigger:www.youtube.com","transport":"tcp","port":80,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"http.host","role":"control","variant":"random","transport":"tcp","port":80,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "http.host",
+        "transport": "tcp",
+        "port": 80,
+        "variant": "benign",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "http.host",
+        "transport": "tcp",
+        "port": 80,
+        "variant": "random",
+        "role": "control",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 1
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "http.host",
+        "transport": "tcp",
+        "port": 80,
+        "variant": "trigger:www.youtube.com",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 2
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "sni_or_host_blocking_suspected",
+        "subject": "http.host tcp/80 trigger:www.youtube.com",
+        "confidence": "medium",
+        "evidence": [
+          "http.host tcp/80 trigger:www.youtube.com: 0/2 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing baseline: http.host tcp/80 benign: 2/2 ok, dominant=ok, server_saw=2"
+        ]
+      },
+      {
+        "kind": "sni_or_host_policy_suspected",
+        "subject": "http.host tcp/80 random",
+        "confidence": "low",
+        "evidence": [
+          "http.host tcp/80 random: 0/1 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing baseline: http.host tcp/80 benign: 2/2 ok, dominant=ok, server_saw=2"
+        ]
+      }
+    ],
+    "summary": "sni_or_host_blocking_suspected×1; low confidence: sni_or_host_policy_suspected×1"
+  }
+}

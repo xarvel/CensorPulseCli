@@ -1,0 +1,98 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"dns.udp","role":"baseline","variant":"TXT","transport":"udp","port":53,"outcome":"dns_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"dns.udp","role":"baseline","variant":"TXT","transport":"udp","port":53,"outcome":"dns_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"dns.udp","role":"baseline","variant":"TXT","transport":"udp","port":53,"outcome":"dns_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"dns.udp","role":"variant","variant":"A","transport":"udp","port":53,"outcome":"dns_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"dns.udp","role":"variant","variant":"A","transport":"udp","port":53,"outcome":"dns_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"dns.udp","role":"variant","variant":"A","transport":"udp","port":53,"outcome":"dns_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"dns.tcp","role":"variant","variant":"TXT","transport":"tcp","port":53,"outcome":"ok","merged":"ok","server":true},
+    {"test":"dns.tcp","role":"variant","variant":"TXT","transport":"tcp","port":53,"outcome":"ok","merged":"ok","server":true},
+    {"test":"dns.tcp","role":"variant","variant":"TXT","transport":"tcp","port":53,"outcome":"ok","merged":"ok","server":true}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "dns.tcp",
+        "transport": "tcp",
+        "port": 53,
+        "variant": "TXT",
+        "role": "variant",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "dns.udp",
+        "transport": "udp",
+        "port": 53,
+        "variant": "A",
+        "role": "variant",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "dns_timeout": 3
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 3
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dns.udp",
+        "transport": "udp",
+        "port": 53,
+        "variant": "TXT",
+        "role": "baseline",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "dns_timeout": 3
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 3
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "dns_udp_blocking_suspected",
+        "subject": "dns.udp udp/53 TXT",
+        "confidence": "high",
+        "evidence": [
+          "dns.udp udp/53 TXT: 0/3 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing control: dns.tcp tcp/53 TXT: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      }
+    ],
+    "summary": "dns_udp_blocking_suspected×1"
+  }
+}

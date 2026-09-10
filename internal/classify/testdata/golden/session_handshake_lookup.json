@@ -1,0 +1,133 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"obfs4.handshake","role":"variant","variant":"ntor-shaped+data","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"obfs4.session","role":"variant","variant":"ntor-shaped+data","transport":"tcp","port":443,"outcome":"session_cut","merged":"uplink_drop_after_handshake","server":true},
+    {"test":"l2tp.init","role":"variant","variant":"v2","transport":"udp","port":1701,"outcome":"ok","merged":"ok","server":true},
+    {"test":"l2tp.session","role":"variant","variant":"v3","transport":"udp","port":1701,"outcome":"session_cut","merged":"uplink_drop_after_handshake","server":true},
+    {"test":"ikev2.init","role":"variant","variant":"plain","transport":"udp","port":500,"outcome":"ok","merged":"ok","server":true},
+    {"test":"ikev2.session","role":"variant","variant":"plain","transport":"udp","port":4500,"outcome":"session_cut","merged":"uplink_drop_after_handshake","server":true}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "ikev2.init",
+        "transport": "udp",
+        "port": 500,
+        "variant": "plain",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "ikev2.session",
+        "transport": "udp",
+        "port": 4500,
+        "variant": "plain",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "session_cut": 1
+        },
+        "merged": {
+          "uplink_drop_after_handshake": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "l2tp.init",
+        "transport": "udp",
+        "port": 1701,
+        "variant": "v2",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "l2tp.session",
+        "transport": "udp",
+        "port": 1701,
+        "variant": "v3",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "session_cut": 1
+        },
+        "merged": {
+          "uplink_drop_after_handshake": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "obfs4.handshake",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "ntor-shaped+data",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "obfs4.session",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "ntor-shaped+data",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "session_cut": 1
+        },
+        "merged": {
+          "uplink_drop_after_handshake": 1
+        },
+        "server_saw": 1
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "l2tp_session_cut_suspected",
+        "subject": "l2tp.session udp/1701 v3",
+        "confidence": "low",
+        "evidence": [
+          "l2tp.session udp/1701 v3: 0/1 ok, dominant=uplink_drop_after_handshake, server_saw=1",
+          "handshake on the same port passed: l2tp.init udp/1701 v2: 1/1 ok, dominant=ok, server_saw=1"
+        ]
+      },
+      {
+        "kind": "obfs4_session_cut_suspected",
+        "subject": "obfs4.session tcp/443 ntor-shaped+data",
+        "confidence": "low",
+        "evidence": [
+          "obfs4.session tcp/443 ntor-shaped+data: 0/1 ok, dominant=uplink_drop_after_handshake, server_saw=1",
+          "handshake on the same port passed: obfs4.handshake tcp/443 ntor-shaped+data: 1/1 ok, dominant=ok, server_saw=1"
+        ]
+      }
+    ],
+    "summary": "low confidence only: l2tp_session_cut_suspected×1, obfs4_session_cut_suspected×1"
+  }
+}

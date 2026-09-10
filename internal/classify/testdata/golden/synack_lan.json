@@ -1,0 +1,66 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true,"connect_ms":0.1},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true,"connect_ms":0.1},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"connect_ms":0.4},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"connect_ms":0.4},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":1194,"outcome":"ok","merged":"ok","server":true,"connect_ms":0.4},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":1194,"outcome":"ok","merged":"ok","server":true,"connect_ms":0.4}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 1194,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 80,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      }
+    ],
+    "verdicts": null,
+    "summary": "clean: every test family passed on every port; no differential observed"
+  }
+}

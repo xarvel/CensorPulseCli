@@ -1,0 +1,387 @@
+{
+  "mode": "standalone",
+  "attempts": [
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.dns","role":"variant","variant":"a.example","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"a.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"a.example","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"connect_timeout","detail":{"category":"news","domain":"a.example"}},
+    {"test":"dest.tls","role":"variant","variant":"a.example","transport":"tcp","port":443,"outcome":"skipped","merged":"skipped","detail":{"category":"news","domain":"a.example"}},
+    {"test":"dest.dns","role":"variant","variant":"a.example","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"a.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"a.example","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"connect_timeout","detail":{"category":"news","domain":"a.example"}},
+    {"test":"dest.tls","role":"variant","variant":"a.example","transport":"tcp","port":443,"outcome":"skipped","merged":"skipped","detail":{"category":"news","domain":"a.example"}},
+    {"test":"dest.dns","role":"variant","variant":"a.example","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"a.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"a.example","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"connect_timeout","detail":{"category":"news","domain":"a.example"}},
+    {"test":"dest.tls","role":"variant","variant":"a.example","transport":"tcp","port":443,"outcome":"skipped","merged":"skipped","detail":{"category":"news","domain":"a.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"b.example","transport":"tcp","port":443,"outcome":"connect_reset","merged":"connect_reset","detail":{"category":"news","domain":"b.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"c.example","transport":"tcp","port":443,"outcome":"connect_refused","merged":"connect_refused","detail":{"category":"news","domain":"c.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"d.example","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"payload_timeout","detail":{"category":"news","domain":"d.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"d.example","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"payload_timeout","detail":{"category":"news","domain":"d.example"}},
+    {"test":"dest.dns","role":"variant","variant":"e.example","transport":"udp","port":53,"outcome":"dns_answer_mismatch","merged":"dns_answer_mismatch","detail":{"category":"news","domain":"e.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"e.example","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"connect_timeout","detail":{"category":"news","domain":"e.example"}},
+    {"test":"dest.dns","role":"variant","variant":"e.example","transport":"udp","port":53,"outcome":"dns_answer_mismatch","merged":"dns_answer_mismatch","detail":{"category":"news","domain":"e.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"e.example","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"connect_timeout","detail":{"category":"news","domain":"e.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"f.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"f.example"}},
+    {"test":"dest.tls","role":"variant","variant":"f.example","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"connect_timeout","detail":{"category":"news","domain":"f.example"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:f.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"f.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"g.example","transport":"tcp","port":443,"outcome":"connect_reset","merged":"connect_reset"}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "a.example",
+        "role": "variant",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "e.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "dns_answer_mismatch": 2
+        },
+        "merged": {
+          "dns_answer_mismatch": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "a.example",
+        "role": "variant",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "connect_timeout": 3
+        },
+        "merged": {
+          "connect_timeout": 3
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "anycast",
+        "role": "control",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "b.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "connect_reset": 1
+        },
+        "merged": {
+          "connect_reset": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "c.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "connect_refused": 1
+        },
+        "merged": {
+          "connect_refused": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "d.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "payload_timeout": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "e.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "connect_timeout": 2
+        },
+        "merged": {
+          "connect_timeout": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "f.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "g.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "connect_reset": 1
+        },
+        "merged": {
+          "connect_reset": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "a.example",
+        "role": "variant",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "skipped": 3
+        },
+        "merged": {
+          "skipped": 3
+        },
+        "server_saw": 0,
+        "unmeasured": 3
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "decoy:f.example",
+        "role": "control",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "f.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "connect_timeout": 1
+        },
+        "merged": {
+          "connect_timeout": 1
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "dest_dns_poisoning_suspected",
+        "subject": "dest.dns udp/53 e.example",
+        "confidence": "medium",
+        "evidence": [
+          "dest.dns udp/53 e.example: 0/2 ok, dominant=dns_answer_mismatch",
+          "passing control: dest.dns udp/53 a.example: 3/3 ok, dominant=ok",
+          "the system resolver's answer for this name is not the one the trusted resolvers give and does not serve; a control site resolves cleanly"
+        ]
+      },
+      {
+        "kind": "dest_tcp_blackhole_suspected",
+        "subject": "dest.tcp tcp/443 a.example",
+        "confidence": "medium",
+        "evidence": [
+          "dest.tcp tcp/443 a.example: 0/3 ok, dominant=connect_timeout",
+          "passing control: dest.tcp tcp/443 anycast: 3/3 ok, dominant=ok",
+          "SYN to the site's address on :443 is never answered while a clean anycast address answers: the address (or prefix) is dropped"
+        ]
+      },
+      {
+        "kind": "dest_tcp_blackhole_suspected",
+        "subject": "dest.tcp tcp/443 e.example",
+        "confidence": "medium",
+        "evidence": [
+          "dest.tcp tcp/443 e.example: 0/2 ok, dominant=connect_timeout",
+          "passing control: dest.tcp tcp/443 anycast: 3/3 ok, dominant=ok",
+          "the addresses probed are the trusted resolvers' answers, not the poisoned ones",
+          "SYN to the site's address on :443 is never answered while a clean anycast address answers: the address (or prefix) is dropped"
+        ]
+      },
+      {
+        "kind": "dest_tcp_blackhole_suspected",
+        "subject": "dest.tls tcp/443 f.example",
+        "confidence": "low",
+        "evidence": [
+          "dest.tls tcp/443 f.example: 0/1 ok, dominant=connect_timeout",
+          "passing control: dest.tcp tcp/443 anycast: 3/3 ok, dominant=ok",
+          "the site's primary address does not accept TCP on :443 while another of its addresses does (dest.tcp tcp/443 f.example: 1/1 ok, dominant=ok): an address or prefix is dropped, the name was never sent"
+        ]
+      },
+      {
+        "kind": "dest_tcp_blocking_suspected",
+        "subject": "dest.tcp tcp/443 d.example",
+        "confidence": "medium",
+        "evidence": [
+          "dest.tcp tcp/443 d.example: 0/2 ok, dominant=payload_timeout",
+          "passing control: dest.tcp tcp/443 anycast: 3/3 ok, dominant=ok"
+        ]
+      },
+      {
+        "kind": "dest_tcp_reset_suspected",
+        "subject": "dest.tcp tcp/443 b.example",
+        "confidence": "low",
+        "evidence": [
+          "dest.tcp tcp/443 b.example: 0/1 ok, dominant=connect_reset",
+          "passing control: dest.tcp tcp/443 anycast: 3/3 ok, dominant=ok",
+          "the connect is actively rejected (RST / refused) while a clean anycast address accepts: an injected reset or a sinkhole"
+        ]
+      },
+      {
+        "kind": "dest_tcp_reset_suspected",
+        "subject": "dest.tcp tcp/443 c.example",
+        "confidence": "low",
+        "evidence": [
+          "dest.tcp tcp/443 c.example: 0/1 ok, dominant=connect_refused",
+          "passing control: dest.tcp tcp/443 anycast: 3/3 ok, dominant=ok",
+          "the connect is actively rejected (RST / refused) while a clean anycast address accepts: an injected reset or a sinkhole"
+        ]
+      },
+      {
+        "kind": "dest_tcp_reset_suspected",
+        "subject": "dest.tcp tcp/443 g.example",
+        "confidence": "low",
+        "evidence": [
+          "dest.tcp tcp/443 g.example: 0/1 ok, dominant=connect_reset",
+          "passing control: dest.tcp tcp/443 anycast: 3/3 ok, dominant=ok",
+          "the connect is actively rejected (RST / refused) while a clean anycast address accepts: an injected reset or a sinkhole"
+        ]
+      }
+    ],
+    "summary": "dest_dns_poisoning_suspected×1, dest_tcp_blackhole_suspected×2, dest_tcp_blocking_suspected×1; low confidence: dest_tcp_blackhole_suspected×1, dest_tcp_reset_suspected×3",
+    "destinations": [
+      {
+        "domain": "a.example",
+        "category": "news",
+        "verdict": "dest_tcp_blackhole_suspected",
+        "confidence": "medium",
+        "layers": {
+          "dns": "ok",
+          "tcp": "connect_timeout",
+          "tls": "skipped"
+        }
+      },
+      {
+        "domain": "b.example",
+        "category": "news",
+        "verdict": "dest_tcp_reset_suspected",
+        "confidence": "low",
+        "layers": {
+          "tcp": "connect_reset"
+        }
+      },
+      {
+        "domain": "c.example",
+        "category": "news",
+        "verdict": "dest_tcp_reset_suspected",
+        "confidence": "low",
+        "layers": {
+          "tcp": "connect_refused"
+        }
+      },
+      {
+        "domain": "d.example",
+        "category": "news",
+        "verdict": "dest_tcp_blocking_suspected",
+        "confidence": "medium",
+        "layers": {
+          "tcp": "payload_timeout"
+        }
+      },
+      {
+        "domain": "e.example",
+        "category": "news",
+        "verdict": "dest_dns_poisoning_suspected",
+        "confidence": "medium",
+        "layers": {
+          "dns": "dns_answer_mismatch",
+          "tcp": "connect_timeout"
+        }
+      },
+      {
+        "domain": "f.example",
+        "category": "news",
+        "verdict": "dest_tcp_blackhole_suspected",
+        "confidence": "low",
+        "layers": {
+          "decoy": "ok",
+          "tcp": "ok",
+          "tls": "connect_timeout"
+        }
+      }
+    ]
+  }
+}

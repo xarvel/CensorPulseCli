@@ -1,0 +1,99 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.bulk","role":"baseline","variant":"up-plain","transport":"tcp","port":443,"outcome":"bulk_stall","merged":"downlink_drop","server":true,"detail":{"bulk_cut_kb":"64"}},
+    {"test":"tcp.bulk","role":"baseline","variant":"up-plain","transport":"tcp","port":443,"outcome":"bulk_stall","merged":"downlink_drop","server":true,"detail":{"bulk_cut_kb":"64"}},
+    {"test":"tcp.bulk","role":"baseline","variant":"up-plain","transport":"tcp","port":443,"outcome":"bulk_stall","merged":"downlink_drop","server":true,"detail":{"bulk_cut_kb":"64"}},
+    {"test":"tcp.bulk","role":"variant","variant":"up-tls:list:example.com","transport":"tcp","port":443,"outcome":"bulk_stall","merged":"downlink_drop","server":true,"detail":{"bulk_cut_kb":"64"}},
+    {"test":"tcp.bulk","role":"variant","variant":"up-tls:list:example.com","transport":"tcp","port":443,"outcome":"bulk_stall","merged":"downlink_drop","server":true,"detail":{"bulk_cut_kb":"64"}},
+    {"test":"tcp.bulk","role":"variant","variant":"up-tls:list:example.com","transport":"tcp","port":443,"outcome":"bulk_stall","merged":"downlink_drop","server":true,"detail":{"bulk_cut_kb":"64"}}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "tcp.bulk",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "up-plain",
+        "role": "baseline",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "bulk_stall": 3
+        },
+        "merged": {
+          "downlink_drop": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "tcp.bulk",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "up-tls:list:example.com",
+        "role": "variant",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "bulk_stall": 3
+        },
+        "merged": {
+          "downlink_drop": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "bulk_transfer_cut_suspected",
+        "subject": "tcp.bulk tcp/443 up-plain",
+        "confidence": "high",
+        "evidence": [
+          "tcp.bulk tcp/443 up-plain: 0/3 ok, dominant=downlink_drop, server_saw=3",
+          "transfer stopped at ~64 KB",
+          "short exchange on the same port passed: tcp.echo tcp/443 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      },
+      {
+        "kind": "protocol_blocking_suspected",
+        "subject": "tcp.bulk tcp/443",
+        "confidence": "high",
+        "evidence": [
+          "tcp.bulk tcp/443 up-plain: 0/3 ok, dominant=downlink_drop, server_saw=3",
+          "passing echo control: tcp.echo tcp/443 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      },
+      {
+        "kind": "sni_bulk_cut_suspected",
+        "subject": "tcp.bulk tcp/443 up-tls:list:example.com",
+        "confidence": "high",
+        "evidence": [
+          "tcp.bulk tcp/443 up-tls:list:example.com: 0/3 ok, dominant=downlink_drop, server_saw=3",
+          "transfer stopped at ~64 KB",
+          "short exchange on the same port passed: tcp.echo tcp/443 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      }
+    ],
+    "summary": "bulk_transfer_cut_suspected×1, protocol_blocking_suspected×1, sni_bulk_cut_suspected×1"
+  }
+}

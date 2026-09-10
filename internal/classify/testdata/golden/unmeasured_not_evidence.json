@@ -1,0 +1,175 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.fingerprint","role":"baseline","variant":"android","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.fingerprint","role":"baseline","variant":"android","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.fingerprint","role":"variant","variant":"firefox","transport":"tcp","port":443,"outcome":"server_error","merged":"server_error"},
+    {"test":"tls.fingerprint","role":"variant","variant":"firefox","transport":"tcp","port":443,"outcome":"server_error","merged":"server_error"},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"dns.udp","role":"baseline","variant":"TXT","transport":"udp","port":53,"outcome":"server_error","merged":"server_error"},
+    {"test":"quic.v1","role":"variant","variant":"h3","transport":"udp","port":443,"outcome":"server_error","merged":"server_error"},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":1194,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":1194,"outcome":"ok","merged":"ok","server":true},
+    {"test":"openvpn.reset","role":"variant","variant":"udp+tls-auth","transport":"udp","port":1194,"outcome":"ok","merged":"ok","server":true},
+    {"test":"openvpn.reset","role":"variant","variant":"udp+tls-auth","transport":"udp","port":1194,"outcome":"ok","merged":"ok","server":true},
+    {"test":"openvpn.session","role":"variant","variant":"udp+tls-auth+data","transport":"udp","port":1194,"outcome":"server_error","merged":"server_error"}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "dns.udp",
+        "transport": "udp",
+        "port": 53,
+        "variant": "TXT",
+        "role": "baseline",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "server_error": 1
+        },
+        "merged": {
+          "server_error": 1
+        },
+        "server_saw": 0,
+        "unmeasured": 1
+      },
+      {
+        "test_id": "openvpn.reset",
+        "transport": "udp",
+        "port": 1194,
+        "variant": "udp+tls-auth",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "openvpn.session",
+        "transport": "udp",
+        "port": 1194,
+        "variant": "udp+tls-auth+data",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "server_error": 1
+        },
+        "merged": {
+          "server_error": 1
+        },
+        "server_saw": 0,
+        "unmeasured": 1
+      },
+      {
+        "test_id": "quic.v1",
+        "transport": "udp",
+        "port": 443,
+        "variant": "h3",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "server_error": 1
+        },
+        "merged": {
+          "server_error": 1
+        },
+        "server_saw": 0,
+        "unmeasured": 1
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tls.fingerprint",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "android",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tls.fingerprint",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "firefox",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "server_error": 2
+        },
+        "merged": {
+          "server_error": 2
+        },
+        "server_saw": 0,
+        "unmeasured": 2
+      },
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 1194,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      }
+    ],
+    "verdicts": null,
+    "summary": "clean: every test family passed on every port; no differential observed"
+  }
+}

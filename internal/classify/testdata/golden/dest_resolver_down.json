@@ -1,0 +1,167 @@
+{
+  "mode": "standalone",
+  "attempts": [
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.dns","role":"variant","variant":"a.example","transport":"udp","port":53,"outcome":"dns_timeout","merged":"dns_timeout","detail":{"category":"news","domain":"a.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"a.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"a.example"}},
+    {"test":"dest.dns","role":"variant","variant":"a.example","transport":"udp","port":53,"outcome":"dns_timeout","merged":"dns_timeout","detail":{"category":"news","domain":"a.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"a.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"a.example"}},
+    {"test":"dest.dns","role":"variant","variant":"b.example","transport":"udp","port":53,"outcome":"dns_timeout","merged":"dns_timeout","detail":{"category":"news","domain":"b.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"b.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"b.example"}},
+    {"test":"dest.dns","role":"variant","variant":"b.example","transport":"udp","port":53,"outcome":"dns_timeout","merged":"dns_timeout","detail":{"category":"news","domain":"b.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"b.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"b.example"}},
+    {"test":"dest.dns","role":"variant","variant":"c.example","transport":"udp","port":53,"outcome":"dns_answer_mismatch","merged":"dns_answer_mismatch","detail":{"category":"news","domain":"c.example"}}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "a.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "dns_timeout": 2
+        },
+        "merged": {
+          "dns_timeout": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "b.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "dns_timeout": 2
+        },
+        "merged": {
+          "dns_timeout": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "c.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "dns_answer_mismatch": 1
+        },
+        "merged": {
+          "dns_answer_mismatch": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "a.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "anycast",
+        "role": "control",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "b.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "dest_dns_poisoning_suspected",
+        "subject": "dest.dns udp/53 c.example",
+        "confidence": "low",
+        "evidence": [
+          "dest.dns udp/53 c.example: 0/1 ok, dominant=dns_answer_mismatch",
+          "no site resolved cleanly through the system resolver: the whole resolver may be substituted"
+        ]
+      },
+      {
+        "kind": "system_resolver_unreachable_suspected",
+        "subject": "dest.dns udp/53",
+        "confidence": "medium",
+        "evidence": [
+          "2 of 3 sites: the system resolver timed out while the trusted DoH resolvers answered",
+          "passing control: the trusted resolvers, and dest.tcp tcp/443 anycast: 2/2 ok, dominant=ok"
+        ]
+      }
+    ],
+    "summary": "system_resolver_unreachable_suspected×1; low confidence: dest_dns_poisoning_suspected×1",
+    "destinations": [
+      {
+        "domain": "a.example",
+        "category": "news",
+        "verdict": "degraded",
+        "layers": {
+          "dns": "dns_timeout",
+          "tcp": "ok"
+        }
+      },
+      {
+        "domain": "b.example",
+        "category": "news",
+        "verdict": "degraded",
+        "layers": {
+          "dns": "dns_timeout",
+          "tcp": "ok"
+        }
+      },
+      {
+        "domain": "c.example",
+        "category": "news",
+        "verdict": "dest_dns_poisoning_suspected",
+        "confidence": "low",
+        "layers": {
+          "dns": "dns_answer_mismatch"
+        }
+      }
+    ]
+  }
+}

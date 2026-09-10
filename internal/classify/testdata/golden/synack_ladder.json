@@ -1,0 +1,199 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true,"connect_ms":3},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true,"connect_ms":3},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"connect_ms":3},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"connect_ms":3},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":1194,"outcome":"ok","merged":"ok","server":true,"connect_ms":110},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":1194,"outcome":"ok","merged":"ok","server":true,"connect_ms":110},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":4433,"outcome":"ok","merged":"ok","server":true,"connect_ms":110},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":4433,"outcome":"ok","merged":"ok","server":true,"connect_ms":110},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":8388,"outcome":"ok","merged":"ok","server":true,"connect_ms":110},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":8388,"outcome":"ok","merged":"ok","server":true,"connect_ms":110},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":8443,"outcome":"ok","merged":"ok","server":true,"connect_ms":27.5},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":8443,"outcome":"ok","merged":"ok","server":true,"connect_ms":27.5},
+    {"test":"tcp.rtt","role":"baseline","variant":"x5","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"connect_ms":500,"detail":{"connect_min_ms":"1.9","connect_payload_ratio":"0.01","payload_min_ms":"170","synack_suspect":"true"}},
+    {"test":"tcp.rtt","role":"baseline","variant":"x5","transport":"tcp","port":8388,"outcome":"ok","merged":"ok","server":true,"connect_ms":500,"detail":{"connect_min_ms":"1.9","connect_payload_ratio":"0.01","payload_min_ms":"170","synack_suspect":"true"}},
+    {"test":"tcp.rtt","role":"baseline","variant":"x5","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true,"connect_ms":500,"detail":{"connect_min_ms":"1.9","connect_payload_ratio":"0.01","payload_min_ms":"170","synack_suspect":"false"}}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 1194,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 4433,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 80,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 8388,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 8443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tcp.rtt",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "x5",
+        "role": "baseline",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "tcp.rtt",
+        "transport": "tcp",
+        "port": 80,
+        "variant": "x5",
+        "role": "baseline",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "tcp.rtt",
+        "transport": "tcp",
+        "port": 8388,
+        "variant": "x5",
+        "role": "baseline",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "synack_local_termination_suspected",
+        "subject": "tcp/443",
+        "confidence": "medium",
+        "evidence": [
+          "median connect on tcp/443 is 3.0 ms; on the other TCP ports 110.0 ms (ratio 0.03)",
+          "tcp.rtt on tcp/443: connect 1.9 ms vs payload 170 ms (ratio 0.01)",
+          "a SYN-ACK from a middlebox: transparent proxy / split-TCP; pcap with TTL would confirm"
+        ]
+      },
+      {
+        "kind": "synack_local_termination_suspected",
+        "subject": "tcp/80",
+        "confidence": "low",
+        "evidence": [
+          "median connect on tcp/80 is 3.0 ms; on the other TCP ports 110.0 ms (ratio 0.03)",
+          "a SYN-ACK from a middlebox: transparent proxy / split-TCP; pcap with TTL would confirm"
+        ]
+      },
+      {
+        "kind": "synack_spoof_signal",
+        "subject": "tcp/8388",
+        "confidence": "low",
+        "evidence": [
+          "tcp.rtt on tcp/8388: connect 1.9 ms vs payload 170 ms (ratio 0.01); no cross-port confirmation; needs pcap/TTL"
+        ]
+      }
+    ],
+    "summary": "synack_local_termination_suspected×1; low confidence: synack_local_termination_suspected×1, synack_spoof_signal×1"
+  }
+}

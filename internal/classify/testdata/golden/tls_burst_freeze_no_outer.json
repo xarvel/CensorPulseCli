@@ -1,0 +1,113 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tls.burst","role":"variant","variant":"chrome-x8","transport":"tcp","port":443,"outcome":"burst_freeze","merged":"uplink_drop_or_route_failure","detail":{"burst_n":"8","fingerprint":"chrome","server_alpha_hello":"0","server_alpha_partial":"0","server_alpha_seen":"1"}},
+    {"test":"tls.burst","role":"variant","variant":"chrome-x8","transport":"tcp","port":443,"outcome":"burst_freeze","merged":"uplink_drop_or_route_failure","detail":{"burst_n":"8","fingerprint":"chrome","server_alpha_hello":"0","server_alpha_partial":"0","server_alpha_seen":"1"}},
+    {"test":"tls.burst","role":"control","variant":"firefox-x8","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tls.burst","role":"control","variant":"firefox-x8","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tls.burst","role":"variant","variant":"chrome-x8","transport":"tcp","port":4433,"outcome":"burst_freeze","merged":"uplink_drop_or_route_failure"},
+    {"test":"tls.burst","role":"variant","variant":"chrome-x8","transport":"tcp","port":4433,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.burst","role":"variant","variant":"chrome-x8","transport":"tcp","port":8443,"outcome":"burst_freeze","merged":"uplink_drop_or_route_failure","detail":{"alpha_ok":"0"}}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "tls.burst",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "chrome-x8",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "burst_freeze": 2
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tls.burst",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "firefox-x8",
+        "role": "control",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tls.burst",
+        "transport": "tcp",
+        "port": 4433,
+        "variant": "chrome-x8",
+        "role": "variant",
+        "total": 2,
+        "ok": 1,
+        "outcomes": {
+          "burst_freeze": 1,
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1,
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "tls.burst",
+        "transport": "tcp",
+        "port": 8443,
+        "variant": "chrome-x8",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "burst_freeze": 1
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "tls_burst_freeze_suspected",
+        "subject": "tls.burst tcp/443 chrome-x8",
+        "confidence": "medium",
+        "evidence": [
+          "tls.burst tcp/443 chrome-x8: 0/2 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "server saw median 1 of 8 ClientHellos and sent a ServerHello to 0: data stopped on the way to the server",
+          "the same burst with the firefox parrot failed too: the rule does not depend on the fingerprint (tls.burst tcp/443 firefox-x8: 0/2 ok, dominant=uplink_drop_or_route_failure, server_saw=0)"
+        ]
+      },
+      {
+        "kind": "tls_burst_freeze_suspected",
+        "subject": "tls.burst tcp/4433 chrome-x8",
+        "confidence": "low",
+        "evidence": [
+          "tls.burst tcp/4433 chrome-x8: 1/2 ok, dominant=ok, server_saw=1"
+        ]
+      },
+      {
+        "kind": "tls_burst_freeze_suspected",
+        "subject": "tls.burst tcp/8443 chrome-x8",
+        "confidence": "low",
+        "evidence": [
+          "tls.burst tcp/8443 chrome-x8: 0/1 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          " parallel handshakes ( parrot, ClientHellos within ~0 ms): median 0 passed; the single handshake to another name right after passed"
+        ]
+      }
+    ],
+    "summary": "tls_burst_freeze_suspected×1; low confidence: tls_burst_freeze_suspected×2"
+  }
+}

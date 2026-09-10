@@ -1,0 +1,453 @@
+{
+  "mode": "standalone",
+  "attempts": [
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.dns","role":"variant","variant":"dw.com","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"dw.com","order":"1"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:dw.com","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"payload_timeout","detail":{"category":"news","domain":"dw.com","order":"1"}},
+    {"test":"dest.tls","role":"control","variant":"absent:dw.com","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"payload_timeout","detail":{"category":"news","domain":"dw.com","order":"1"}},
+    {"test":"dest.dns","role":"variant","variant":"dw.com","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"dw.com","order":"1"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:dw.com","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"payload_timeout","detail":{"category":"news","domain":"dw.com","order":"1"}},
+    {"test":"dest.tls","role":"control","variant":"absent:dw.com","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"payload_timeout","detail":{"category":"news","domain":"dw.com","order":"1"}},
+    {"test":"dest.tcp","role":"variant","variant":"dw.com","transport":"tcp","port":443,"outcome":"ok","merged":"ok","connect_ms":94,"detail":{"category":"news","domain":"dw.com","endpoint":"194.55.26.46:443","order":"1"}},
+    {"test":"dest.tcp","role":"variant","variant":"dw.com","transport":"tcp","port":443,"outcome":"ok","merged":"ok","connect_ms":94,"detail":{"category":"news","domain":"dw.com","endpoint":"194.55.26.46:443","order":"1"}},
+    {"test":"dest.tls","role":"variant","variant":"dw.com","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"midstream_reset","connect_ms":94,"first_write_ms":94,"done_ms":128,"detail":{"category":"news","domain":"dw.com","ip":"194.55.26.46","order":"1"}},
+    {"test":"dest.tls","role":"variant","variant":"dw.com","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"midstream_reset","connect_ms":96,"first_write_ms":96,"done_ms":148,"detail":{"category":"news","domain":"dw.com","ip":"194.55.26.46","order":"1"}},
+    {"test":"dest.dns","role":"variant","variant":"meduza.io","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"meduza.io","order":"2"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:meduza.io","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"payload_timeout","detail":{"category":"news","domain":"meduza.io","order":"2"}},
+    {"test":"dest.tls","role":"control","variant":"absent:meduza.io","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"payload_timeout","detail":{"category":"news","domain":"meduza.io","order":"2"}},
+    {"test":"dest.dns","role":"variant","variant":"meduza.io","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"meduza.io","order":"2"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:meduza.io","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"payload_timeout","detail":{"category":"news","domain":"meduza.io","order":"2"}},
+    {"test":"dest.tls","role":"control","variant":"absent:meduza.io","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"payload_timeout","detail":{"category":"news","domain":"meduza.io","order":"2"}},
+    {"test":"dest.tcp","role":"variant","variant":"meduza.io","transport":"tcp","port":443,"outcome":"ok","merged":"ok","connect_ms":64,"detail":{"category":"news","domain":"meduza.io","endpoint":"8.47.69.0:443","order":"2"}},
+    {"test":"dest.tcp","role":"variant","variant":"meduza.io","transport":"tcp","port":443,"outcome":"ok","merged":"ok","connect_ms":64,"detail":{"category":"news","domain":"meduza.io","endpoint":"8.47.69.0:443","order":"2"}},
+    {"test":"dest.tls","role":"variant","variant":"meduza.io","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"midstream_reset","connect_ms":72,"first_write_ms":72,"done_ms":107,"detail":{"category":"news","domain":"meduza.io","ip":"8.47.69.0","order":"2"}},
+    {"test":"dest.tls","role":"variant","variant":"meduza.io","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"midstream_reset","connect_ms":1087,"first_write_ms":1087,"done_ms":1120,"detail":{"category":"news","domain":"meduza.io","ip":"8.47.69.0","order":"2"}},
+    {"test":"dest.dns","role":"variant","variant":"late.example","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"late.example","order":"3"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:late.example","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"payload_timeout","detail":{"category":"news","domain":"late.example","order":"3"}},
+    {"test":"dest.dns","role":"variant","variant":"late.example","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"late.example","order":"3"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:late.example","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"payload_timeout","detail":{"category":"news","domain":"late.example","order":"3"}},
+    {"test":"dest.tcp","role":"variant","variant":"late.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","connect_ms":40,"detail":{"category":"news","domain":"late.example","endpoint":"198.51.100.3:443","order":"3"}},
+    {"test":"dest.tcp","role":"variant","variant":"late.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","connect_ms":40,"detail":{"category":"news","domain":"late.example","endpoint":"198.51.100.3:443","order":"3"}},
+    {"test":"dest.tls","role":"variant","variant":"late.example","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"midstream_reset","connect_ms":40,"first_write_ms":40,"done_ms":160,"detail":{"category":"news","domain":"late.example","ip":"198.51.100.3","order":"3"}},
+    {"test":"dest.tls","role":"variant","variant":"late.example","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"midstream_reset","connect_ms":40,"first_write_ms":40,"done_ms":160,"detail":{"category":"news","domain":"late.example","ip":"198.51.100.3","order":"3"}},
+    {"test":"dest.dns","role":"variant","variant":"both.example","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"both.example","order":"4"}},
+    {"test":"dest.tcp","role":"variant","variant":"both.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"both.example","order":"4"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:both.example","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"midstream_reset","detail":{"category":"news","domain":"both.example","order":"4"}},
+    {"test":"dest.dns","role":"variant","variant":"both.example","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"both.example","order":"4"}},
+    {"test":"dest.tcp","role":"variant","variant":"both.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"both.example","order":"4"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:both.example","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"midstream_reset","detail":{"category":"news","domain":"both.example","order":"4"}},
+    {"test":"dest.tls","role":"variant","variant":"both.example","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"midstream_reset","connect_ms":50,"first_write_ms":50,"done_ms":70,"detail":{"category":"news","domain":"both.example","ip":"198.51.100.4","order":"4"}},
+    {"test":"dest.tls","role":"variant","variant":"both.example","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"midstream_reset","connect_ms":50,"first_write_ms":50,"done_ms":70,"detail":{"category":"news","domain":"both.example","ip":"198.51.100.4","order":"4"}}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "both.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "dw.com",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "late.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "meduza.io",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "anycast",
+        "role": "control",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "both.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "dw.com",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "late.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "meduza.io",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "absent:dw.com",
+        "role": "control",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "payload_timeout": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "absent:meduza.io",
+        "role": "control",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "payload_timeout": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "both.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "midstream_reset": 2
+        },
+        "merged": {
+          "midstream_reset": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "decoy:both.example",
+        "role": "control",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "midstream_reset": 2
+        },
+        "merged": {
+          "midstream_reset": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "decoy:dw.com",
+        "role": "control",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "payload_timeout": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "decoy:late.example",
+        "role": "control",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "payload_timeout": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "decoy:meduza.io",
+        "role": "control",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "payload_timeout": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "dw.com",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "midstream_reset": 2
+        },
+        "merged": {
+          "midstream_reset": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "late.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "midstream_reset": 2
+        },
+        "merged": {
+          "midstream_reset": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "meduza.io",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "midstream_reset": 2
+        },
+        "merged": {
+          "midstream_reset": 2
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "dest_sni_blocking_suspected",
+        "subject": "dest.tls tcp/443 dw.com",
+        "confidence": "medium",
+        "evidence": [
+          "dest.tls tcp/443 dw.com: 0/2 ok, dominant=midstream_reset",
+          "the decoy name on the same address was never reset, it timed out: dest.tls tcp/443 decoy:dw.com: 0/2 ok, dominant=payload_timeout",
+          "no SNI: dest.tls tcp/443 absent:dw.com: 0/2 ok, dominant=payload_timeout",
+          "the reset came 34-52 ms after the ClientHello, sooner than the TCP round trip to the address (94 ms): sent by a middlebox on the path, not by the server",
+          "only the real name draws a reset on this address, the handshakes with another name or none time out instead: the rule keys on the SNI"
+        ]
+      },
+      {
+        "kind": "dest_sni_blocking_suspected",
+        "subject": "dest.tls tcp/443 late.example",
+        "confidence": "low",
+        "evidence": [
+          "dest.tls tcp/443 late.example: 0/2 ok, dominant=midstream_reset",
+          "the decoy name on the same address was never reset, it timed out: dest.tls tcp/443 decoy:late.example: 0/2 ok, dominant=payload_timeout",
+          "the reset came 120 ms after the ClientHello, the TCP round trip to the address took 40 ms",
+          "only the real name draws a reset on this address, the handshakes with another name or none time out instead: the rule keys on the SNI"
+        ]
+      },
+      {
+        "kind": "dest_sni_blocking_suspected",
+        "subject": "dest.tls tcp/443 meduza.io",
+        "confidence": "medium",
+        "evidence": [
+          "dest.tls tcp/443 meduza.io: 0/2 ok, dominant=midstream_reset",
+          "the decoy name on the same address was never reset, it timed out: dest.tls tcp/443 decoy:meduza.io: 0/2 ok, dominant=payload_timeout",
+          "no SNI: dest.tls tcp/443 absent:meduza.io: 0/2 ok, dominant=payload_timeout",
+          "the reset came 33-35 ms after the ClientHello, sooner than the TCP round trip to the address (64 ms): sent by a middlebox on the path, not by the server",
+          "only the real name draws a reset on this address, the handshakes with another name or none time out instead: the rule keys on the SNI"
+        ]
+      },
+      {
+        "kind": "dest_tls_blocking_suspected",
+        "subject": "dest.tls tcp/443 both.example",
+        "confidence": "medium",
+        "evidence": [
+          "dest.tls tcp/443 both.example: 0/2 ok, dominant=midstream_reset",
+          "decoy name on the same address fails too: dest.tls tcp/443 decoy:both.example: 0/2 ok, dominant=midstream_reset",
+          "passing control: TCP connect dest.tcp tcp/443 both.example: 2/2 ok, dominant=ok",
+          "TCP connects but no TLS handshake with a name completes on the address: address-level or handshake-level interference, not the name alone"
+        ]
+      }
+    ],
+    "summary": "dest_sni_blocking_suspected×2, dest_tls_blocking_suspected×1; low confidence: dest_sni_blocking_suspected×1",
+    "destinations": [
+      {
+        "domain": "dw.com",
+        "category": "news",
+        "verdict": "dest_sni_blocking_suspected",
+        "confidence": "medium",
+        "layers": {
+          "absent": "payload_timeout",
+          "decoy": "payload_timeout",
+          "dns": "ok",
+          "tcp": "ok",
+          "tls": "midstream_reset"
+        }
+      },
+      {
+        "domain": "meduza.io",
+        "category": "news",
+        "verdict": "dest_sni_blocking_suspected",
+        "confidence": "medium",
+        "layers": {
+          "absent": "payload_timeout",
+          "decoy": "payload_timeout",
+          "dns": "ok",
+          "tcp": "ok",
+          "tls": "midstream_reset"
+        }
+      },
+      {
+        "domain": "late.example",
+        "category": "news",
+        "verdict": "dest_sni_blocking_suspected",
+        "confidence": "low",
+        "layers": {
+          "decoy": "payload_timeout",
+          "dns": "ok",
+          "tcp": "ok",
+          "tls": "midstream_reset"
+        }
+      },
+      {
+        "domain": "both.example",
+        "category": "news",
+        "verdict": "dest_tls_blocking_suspected",
+        "confidence": "medium",
+        "layers": {
+          "decoy": "midstream_reset",
+          "dns": "ok",
+          "tcp": "ok",
+          "tls": "midstream_reset"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "mode": "standalone",
+  "attempts": [
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.tcp","role":"variant","variant":"x.com","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"social","domain":"x.com","order":"2"}},
+    {"test":"dest.tls","role":"variant","variant":"x.com","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"payload_timeout","detail":{"category":"social","domain":"x.com","order":"2"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:x.com","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"payload_timeout","detail":{"category":"social","domain":"x.com","order":"2"}},
+    {"test":"dest.tls","role":"control","variant":"absent:x.com","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"social","domain":"x.com","order":"2"}},
+    {"test":"dest.tcp","role":"variant","variant":"x.com","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"social","domain":"x.com","order":"2"}},
+    {"test":"dest.tls","role":"variant","variant":"x.com","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"payload_timeout","detail":{"category":"social","domain":"x.com","order":"2"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:x.com","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"payload_timeout","detail":{"category":"social","domain":"x.com","order":"2"}},
+    {"test":"dest.tls","role":"control","variant":"absent:x.com","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"social","domain":"x.com","order":"2"}},
+    {"test":"dest.tcp","role":"variant","variant":"nodecoy.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"nodecoy.example","order":"1"}},
+    {"test":"dest.tls","role":"variant","variant":"nodecoy.example","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"payload_timeout","detail":{"category":"news","domain":"nodecoy.example","order":"1"}},
+    {"test":"dest.tcp","role":"variant","variant":"decoyskipped.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"decoyskipped.example"}},
+    {"test":"dest.tls","role":"variant","variant":"decoyskipped.example","transport":"tcp","port":443,"outcome":"tls_alert","merged":"tls_alert","detail":{"category":"news","domain":"decoyskipped.example"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:decoyskipped.example","transport":"tcp","port":443,"outcome":"skipped","merged":"skipped","detail":{"category":"news","domain":"decoyskipped.example"}}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "anycast",
+        "role": "control",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "decoyskipped.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "nodecoy.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "x.com",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "absent:x.com",
+        "role": "control",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "decoy:decoyskipped.example",
+        "role": "control",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "skipped": 1
+        },
+        "merged": {
+          "skipped": 1
+        },
+        "server_saw": 0,
+        "unmeasured": 1
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "decoy:x.com",
+        "role": "control",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "payload_timeout": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "decoyskipped.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "tls_alert": 1
+        },
+        "merged": {
+          "tls_alert": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "nodecoy.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 1
+        },
+        "merged": {
+          "payload_timeout": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "x.com",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "payload_timeout": 2
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "dest_tls_blocking_suspected",
+        "subject": "dest.tls tcp/443 decoyskipped.example",
+        "confidence": "low",
+        "evidence": [
+          "dest.tls tcp/443 decoyskipped.example: 0/1 ok, dominant=tls_alert",
+          "no decoy handshake to compare with",
+          "passing control: TCP connect dest.tcp tcp/443 decoyskipped.example: 1/1 ok, dominant=ok"
+        ]
+      },
+      {
+        "kind": "dest_tls_blocking_suspected",
+        "subject": "dest.tls tcp/443 nodecoy.example",
+        "confidence": "low",
+        "evidence": [
+          "dest.tls tcp/443 nodecoy.example: 0/1 ok, dominant=payload_timeout",
+          "no decoy handshake to compare with",
+          "passing control: TCP connect dest.tcp tcp/443 nodecoy.example: 1/1 ok, dominant=ok"
+        ]
+      },
+      {
+        "kind": "dest_tls_blocking_suspected",
+        "subject": "dest.tls tcp/443 x.com",
+        "confidence": "medium",
+        "evidence": [
+          "dest.tls tcp/443 x.com: 0/2 ok, dominant=payload_timeout",
+          "decoy name on the same address fails too: dest.tls tcp/443 decoy:x.com: 0/2 ok, dominant=payload_timeout",
+          "passing control: TCP connect dest.tcp tcp/443 x.com: 2/2 ok, dominant=ok",
+          "a handshake without SNI passes: dest.tls tcp/443 absent:x.com: 2/2 ok, dominant=ok; the rule keys on any name, or on the handshake shape",
+          "TCP connects but no TLS handshake with a name completes on the address: address-level or handshake-level interference, not the name alone"
+        ]
+      }
+    ],
+    "summary": "dest_tls_blocking_suspected×1; low confidence: dest_tls_blocking_suspected×2",
+    "destinations": [
+      {
+        "domain": "nodecoy.example",
+        "category": "news",
+        "verdict": "dest_tls_blocking_suspected",
+        "confidence": "low",
+        "layers": {
+          "tcp": "ok",
+          "tls": "payload_timeout"
+        }
+      },
+      {
+        "domain": "x.com",
+        "category": "social",
+        "verdict": "dest_tls_blocking_suspected",
+        "confidence": "medium",
+        "layers": {
+          "absent": "ok",
+          "decoy": "payload_timeout",
+          "tcp": "ok",
+          "tls": "payload_timeout"
+        }
+      },
+      {
+        "domain": "decoyskipped.example",
+        "category": "news",
+        "verdict": "dest_tls_blocking_suspected",
+        "confidence": "low",
+        "layers": {
+          "decoy": "skipped",
+          "tcp": "ok",
+          "tls": "tls_alert"
+        }
+      }
+    ]
+  }
+}

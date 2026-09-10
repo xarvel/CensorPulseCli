@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "client_version": "s",
+  "mode": "sites",
+  "target": "s",
+  "control_port": 1,
+  "started_at": "2026-01-02T03:04:05Z",
+  "finished_at": "2026-01-02T03:04:05Z",
+  "probe_reachable": true,
+  "bootstrap_error": "s",
+  "observed_spki_pin": "s",
+  "pin_enforced": true,
+  "params": {
+    "schema_version": 1,
+    "server_version": "s",
+    "server_time": "s",
+    "spki_pin": "s",
+    "wg_public_key": "s",
+    "tcp_ports": [
+      1
+    ],
+    "udp_ports": [
+      1
+    ],
+    "dns_ports": [
+      1
+    ],
+    "dot_port": 1,
+    "dns_zone": "s",
+    "quic_ports": [
+      1
+    ],
+    "enabled_tests": [
+      "s"
+    ],
+    "max_udp_payload": 1,
+    "features": [
+      "s"
+    ],
+    "obfs4_cert": "s",
+    "tor_spki_pin": "s",
+    "ovpn_tls_auth_key": "s"
+  },
+  "session_id": "s",
+  "client_public_addr": "s",
+  "network": {
+    "asn": 1,
+    "org": "s",
+    "country": "s",
+    "prefix": "s",
+    "source": "s",
+    "tables_at": "s"
+  },
+  "control_rtt_ms": 1.5,
+  "attempt_timeout_ms": 1.5,
+  "warnings": [
+    "s"
+  ],
+  "health": {
+    "server_time": "s",
+    "listeners": {
+      "k": "s"
+    },
+    "uptime": "s"
+  },
+  "attempts": [
+    {
+      "id": "s",
+      "test_id": "s",
+      "group": "s",
+      "role": "baseline",
+      "variant": "s",
+      "transport": "s",
+      "dst_port": 1,
+      "src_port": 1,
+      "round": 1,
+      "started_at": "2026-01-02T03:04:05Z",
+      "stages_ms": {
+        "connect": 1.5
+      },
+      "outcome": "ok",
+      "error": "s",
+      "bytes_out": 1,
+      "bytes_in": 1,
+      "nonce": "s",
+      "attempt_id": "s",
+      "detail": {
+        "k": "s"
+      },
+      "server": {
+        "id": "s",
+        "session_id": "s",
+        "attempt_id": "s",
+        "test_id": "s",
+        "nonce": "s",
+        "seq": 1,
+        "transport": "s",
+        "dst_port": 1,
+        "src_port": 1,
+        "first_seen_at": "2026-01-02T03:04:05Z",
+        "replied_at": "2026-01-02T03:04:05Z",
+        "closed_at": "2026-01-02T03:04:05Z",
+        "bytes_in": 1,
+        "bytes_out": 1,
+        "payload_sha256": "s",
+        "parse": "s",
+        "detail": {
+          "k": "s"
+        },
+        "response": "s",
+        "close": "s",
+        "server_error": "s",
+        "unmatched": true
+      },
+      "merged": "s"
+    }
+  ],
+  "cells": [
+    {
+      "test_id": "s",
+      "transport": "s",
+      "port": 1,
+      "variant": "s",
+      "role": "baseline",
+      "total": 1,
+      "ok": 1,
+      "outcomes": {
+        "k": 1
+      },
+      "merged": {
+        "k": 1
+      },
+      "server_saw": 1,
+      "unmeasured": 1
+    }
+  ],
+  "verdicts": [
+    {
+      "kind": "s",
+      "subject": "s",
+      "confidence": "high",
+      "evidence": [
+        "s"
+      ]
+    }
+  ],
+  "destinations": [
+    {
+      "domain": "s",
+      "category": "s",
+      "label": "s",
+      "verdict": "s",
+      "confidence": "high",
+      "layers": {
+        "dns": "s"
+      },
+      "note": "s"
+    }
+  ],
+  "summary": "s",
+  "notes": [
+    "s"
+  ],
+  "unmatched_observations": [
+    {
+      "id": "s",
+      "session_id": "s",
+      "attempt_id": "s",
+      "test_id": "s",
+      "nonce": "s",
+      "seq": 1,
+      "transport": "s",
+      "dst_port": 1,
+      "src_port": 1,
+      "first_seen_at": "2026-01-02T03:04:05Z",
+      "replied_at": "2026-01-02T03:04:05Z",
+      "closed_at": "2026-01-02T03:04:05Z",
+      "bytes_in": 1,
+      "bytes_out": 1,
+      "payload_sha256": "s",
+      "parse": "s",
+      "detail": {
+        "k": "s"
+      },
+      "response": "s",
+      "close": "s",
+      "server_error": "s",
+      "unmatched": true
+    }
+  ]
+}

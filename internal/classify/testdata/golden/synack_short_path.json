@@ -1,0 +1,110 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true,"connect_ms":5},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true,"connect_ms":5},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"connect_ms":24},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true,"connect_ms":24},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":1194,"outcome":"ok","merged":"ok","server":true,"connect_ms":24},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":1194,"outcome":"ok","merged":"ok","server":true,"connect_ms":24},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":4433,"outcome":"ok","merged":"ok","server":true,"connect_ms":24},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":4433,"outcome":"ok","merged":"ok","server":true,"connect_ms":24},
+    {"test":"tcp.rtt","role":"baseline","variant":"x5","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true,"detail":{"connect_min_ms":"4.8","connect_payload_ratio":"0.10","payload_min_ms":"49","synack_suspect":"true"}}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 1194,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 4433,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 80,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tcp.rtt",
+        "transport": "tcp",
+        "port": 80,
+        "variant": "x5",
+        "role": "baseline",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "synack_spoof_signal",
+        "subject": "tcp/80",
+        "confidence": "low",
+        "evidence": [
+          "tcp.rtt on tcp/80: connect 4.8 ms vs payload 49 ms (ratio 0.10); no cross-port confirmation; needs pcap/TTL"
+        ]
+      }
+    ],
+    "summary": "low confidence only: synack_spoof_signal×1"
+  }
+}

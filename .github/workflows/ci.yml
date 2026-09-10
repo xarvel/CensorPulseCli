@@ -1,0 +1,50 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+# A newer push to the same ref makes the older run pointless.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with: { go-version-file: go.mod, cache-dependency-path: go.sum }
+      - run: test -z "$(gofmt -l ./cmd ./internal ./engine ./bind)" || { gofmt -l ./cmd ./internal ./engine ./bind; exit 1; }
+      # One file per invocation: `sh -n a b c` parses a and takes the rest for
+      # its arguments. Each script is checked by the shell its shebang names.
+      - name: shell syntax
+        run: |
+          for f in scripts/*.sh; do
+            case "$(head -n1 "$f")" in
+              *bash*) bash -n "$f" ;;
+              *) sh -n "$f" ;;
+            esac
+          done
+      - run: go vet ./...
+      # Pinned, run from the module cache: the linters are not dependencies of
+      # the module.
+      - run: go run honnef.co/go/tools/cmd/staticcheck@v0.8.1 ./...
+      - run: go run golang.org/x/vuln/cmd/govulncheck@v1.8.0 ./...
+      - run: make bind-check   # bind/ still binds with gomobile (no NDK/Xcode needed)
+      # -race: the client runs its attempts on parallel workers and the server
+      # is a goroutine per flow; -p 1: the integration suite binds fixed ports.
+      - run: go test -race ./... -count=1 -p 1
+      - run: make build && REPEAT=1 ./scripts/selftest.sh
+      - name: installer smoke test
+        run: |
+          dir="$(mktemp -d)"
+          CPPROBE_INSTALL_DIR="$dir" sh scripts/install.sh
+          "$dir/cpprobe" version
+      - run: docker build -t censorpulse-probe:ci .

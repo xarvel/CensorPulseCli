@@ -1,0 +1,40 @@
+{
+  "mode": "unreachable",
+  "attempts": [
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"uplink_drop_or_route_failure"}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "connect_timeout": 3
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 3
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "probe_unreachable",
+        "subject": "control plane",
+        "confidence": "high",
+        "evidence": [
+          "control API on the pinned TLS port did not answer; no protocol-level conclusion is possible"
+        ]
+      }
+    ],
+    "summary": "probe_unreachable"
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":500,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":500,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":500,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.payload.random","role":"control","variant":"random-64","transport":"udp","port":500,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.payload.random","role":"control","variant":"random-64","transport":"udp","port":500,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.payload.random","role":"control","variant":"random-64","transport":"udp","port":500,"outcome":"ok","merged":"ok","server":true},
+    {"test":"ikev2.init","role":"variant","variant":"plain","transport":"udp","port":500,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"ikev2.init","role":"variant","variant":"plain","transport":"udp","port":500,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"ikev2.init","role":"variant","variant":"plain","transport":"udp","port":500,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":1701,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":1701,"outcome":"ok","merged":"ok","server":true},
+    {"test":"l2tp.init","role":"variant","variant":"v2","transport":"udp","port":1701,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"l2tp.init","role":"variant","variant":"v2","transport":"udp","port":1701,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "ikev2.init",
+        "transport": "udp",
+        "port": 500,
+        "variant": "plain",
+        "role": "variant",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 3
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 3
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "l2tp.init",
+        "transport": "udp",
+        "port": 1701,
+        "variant": "v2",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 1701,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 500,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "udp.payload.random",
+        "transport": "udp",
+        "port": 500,
+        "variant": "random-64",
+        "role": "control",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "protocol_blocking_suspected",
+        "subject": "ikev2.init udp/500",
+        "confidence": "high",
+        "evidence": [
+          "ikev2.init udp/500 plain: 0/3 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing echo control: udp.echo udp/500 cp1-64: 3/3 ok, dominant=ok, server_saw=3",
+          "passing random control: udp.payload.random udp/500 random-64: 3/3 ok, dominant=ok, server_saw=3",
+          "consumer NAT routers with IPsec / L2TP passthrough ALGs drop or rewrite exactly these packets: a known confound on home networks, not necessarily the censor"
+        ]
+      },
+      {
+        "kind": "protocol_blocking_suspected",
+        "subject": "l2tp.init udp/1701",
+        "confidence": "medium",
+        "evidence": [
+          "l2tp.init udp/1701 v2: 0/2 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing echo control: udp.echo udp/1701 cp1-64: 2/2 ok, dominant=ok, server_saw=2",
+          "consumer NAT routers with IPsec / L2TP passthrough ALGs drop or rewrite exactly these packets: a known confound on home networks, not necessarily the censor"
+        ]
+      }
+    ],
+    "summary": "protocol_blocking_suspected×2"
+  }
+}

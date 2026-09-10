@@ -1,0 +1,219 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"dns.dot","role":"variant","variant":"TXT","transport":"tcp","port":853,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"dns.dot","role":"variant","variant":"TXT","transport":"tcp","port":853,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"dns.dot","role":"variant","variant":"TXT","transport":"tcp","port":853,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"dns.udp","role":"baseline","variant":"TXT","transport":"udp","port":53,"outcome":"dns_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"dns.udp","role":"baseline","variant":"TXT","transport":"udp","port":53,"outcome":"dns_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"dns.tcp","role":"variant","variant":"TXT","transport":"tcp","port":53,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"dns.doh","role":"variant","variant":"TXT","transport":"tcp","port":8443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"dns.doh","role":"variant","variant":"TXT","transport":"tcp","port":8443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"dns.system","role":"variant","variant":"whoami","transport":"udp","port":0,"outcome":"dns_timeout","merged":"dns_timeout"},
+    {"test":"dns.udp","role":"variant","variant":"A","transport":"udp","port":443,"outcome":"dns_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"dns.dot","role":"variant","variant":"TXT","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "dns.doh",
+        "transport": "tcp",
+        "port": 8443,
+        "variant": "TXT",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dns.dot",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "TXT",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 1
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dns.dot",
+        "transport": "tcp",
+        "port": 853,
+        "variant": "TXT",
+        "role": "variant",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 3
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 3
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dns.system",
+        "transport": "udp",
+        "port": 0,
+        "variant": "whoami",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "dns_timeout": 1
+        },
+        "merged": {
+          "dns_timeout": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dns.tcp",
+        "transport": "tcp",
+        "port": 53,
+        "variant": "TXT",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 1
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dns.udp",
+        "transport": "udp",
+        "port": 443,
+        "variant": "A",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "dns_timeout": 1
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dns.udp",
+        "transport": "udp",
+        "port": 53,
+        "variant": "TXT",
+        "role": "baseline",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "dns_timeout": 2
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "dns_port_blocking_suspected",
+        "subject": "dns.dot tcp/853 TXT",
+        "confidence": "high",
+        "evidence": [
+          "dns.dot tcp/853 TXT: 0/3 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "no echo runs on this port; passing echo on another port of the same transport: tcp.echo tcp/443 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      },
+      {
+        "kind": "dns_port_blocking_suspected",
+        "subject": "dns.tcp tcp/53 TXT",
+        "confidence": "low",
+        "evidence": [
+          "dns.tcp tcp/53 TXT: 0/1 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "no echo runs on this port; passing echo on another port of the same transport: tcp.echo tcp/443 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      },
+      {
+        "kind": "dns_port_blocking_suspected",
+        "subject": "dns.udp udp/53 TXT",
+        "confidence": "medium",
+        "evidence": [
+          "dns.udp udp/53 TXT: 0/2 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "no echo runs on this port; passing echo on another port of the same transport: udp.echo udp/443 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      },
+      {
+        "kind": "protocol_blocking_suspected",
+        "subject": "dns.dot tcp/443",
+        "confidence": "low",
+        "evidence": [
+          "dns.dot tcp/443 TXT: 0/1 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing echo control: tcp.echo tcp/443 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      },
+      {
+        "kind": "protocol_blocking_suspected",
+        "subject": "dns.udp udp/443",
+        "confidence": "low",
+        "evidence": [
+          "dns.udp udp/443 A: 0/1 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing echo control: udp.echo udp/443 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      }
+    ],
+    "summary": "dns_port_blocking_suspected×2; low confidence: dns_port_blocking_suspected×1, protocol_blocking_suspected×2"
+  }
+}

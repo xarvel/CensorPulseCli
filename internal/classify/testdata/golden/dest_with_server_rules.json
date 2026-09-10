@@ -1,0 +1,179 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.sni","role":"baseline","variant":"benign","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.sni","role":"baseline","variant":"benign","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.sni","role":"baseline","variant":"benign","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.sni","role":"variant","variant":"trigger:www.youtube.com","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"rst_injected_or_path_reset"},
+    {"test":"tls.sni","role":"variant","variant":"trigger:www.youtube.com","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"rst_injected_or_path_reset"},
+    {"test":"tls.sni","role":"variant","variant":"trigger:www.youtube.com","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"rst_injected_or_path_reset"},
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.tcp","role":"variant","variant":"youtube.com","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"dpi","domain":"youtube.com","order":"0"}},
+    {"test":"dest.tls","role":"variant","variant":"youtube.com","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"midstream_reset","detail":{"category":"dpi","domain":"youtube.com","order":"0"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:youtube.com","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"dpi","domain":"youtube.com","order":"0"}},
+    {"test":"dest.tcp","role":"variant","variant":"youtube.com","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"dpi","domain":"youtube.com","order":"0"}},
+    {"test":"dest.tls","role":"variant","variant":"youtube.com","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"midstream_reset","detail":{"category":"dpi","domain":"youtube.com","order":"0"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:youtube.com","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"dpi","domain":"youtube.com","order":"0"}},
+    {"test":"dest.tcp","role":"variant","variant":"youtube.com","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"dpi","domain":"youtube.com","order":"0"}},
+    {"test":"dest.tls","role":"variant","variant":"youtube.com","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"midstream_reset","detail":{"category":"dpi","domain":"youtube.com","order":"0"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:youtube.com","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"dpi","domain":"youtube.com","order":"0"}}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "anycast",
+        "role": "control",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "youtube.com",
+        "role": "variant",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "decoy:youtube.com",
+        "role": "control",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "youtube.com",
+        "role": "variant",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "midstream_reset": 3
+        },
+        "merged": {
+          "midstream_reset": 3
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "tls.sni",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "benign",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "tls.sni",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "trigger:www.youtube.com",
+        "role": "variant",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "midstream_reset": 3
+        },
+        "merged": {
+          "rst_injected_or_path_reset": 3
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "dest_sni_blocking_suspected",
+        "subject": "dest.tls tcp/443 youtube.com",
+        "confidence": "medium",
+        "evidence": [
+          "dest.tls tcp/443 youtube.com: 0/3 ok, dominant=midstream_reset",
+          "passing control on the same address: dest.tls tcp/443 decoy:youtube.com: 3/3 ok, dominant=ok",
+          "the real name fails while a decoy name on the very same address completes the handshake: the rule keys on the SNI"
+        ]
+      },
+      {
+        "kind": "sni_or_host_blocking_suspected",
+        "subject": "tls.sni tcp/443 trigger:www.youtube.com",
+        "confidence": "high",
+        "evidence": [
+          "tls.sni tcp/443 trigger:www.youtube.com: 0/3 ok, dominant=rst_injected_or_path_reset, server_saw=0",
+          "passing baseline: tls.sni tcp/443 benign: 3/3 ok, dominant=ok, server_saw=3",
+          "mechanism: 3/3 attempts merged as rst_injected_or_path_reset"
+        ]
+      }
+    ],
+    "summary": "dest_sni_blocking_suspected×1, sni_or_host_blocking_suspected×1",
+    "destinations": [
+      {
+        "domain": "youtube.com",
+        "category": "dpi",
+        "verdict": "dest_sni_blocking_suspected",
+        "confidence": "medium",
+        "layers": {
+          "decoy": "ok",
+          "tcp": "ok",
+          "tls": "midstream_reset"
+        }
+      }
+    ]
+  }
+}

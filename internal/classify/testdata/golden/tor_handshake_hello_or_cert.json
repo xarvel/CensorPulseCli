@@ -1,0 +1,199 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tor.handshake","role":"baseline","variant":"go-hello+probe-cert","transport":"tcp","port":9001,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tor.handshake","role":"variant","variant":"go-hello+tor-cert","transport":"tcp","port":9001,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tor.handshake","role":"variant","variant":"tor-hello+probe-cert","transport":"tcp","port":9001,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tor.handshake","role":"variant","variant":"tor-hello+tor-cert","transport":"tcp","port":9001,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tor.handshake","role":"baseline","variant":"go-hello+probe-cert","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tor.handshake","role":"variant","variant":"go-hello+tor-cert","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tor.handshake","role":"variant","variant":"tor-hello+probe-cert","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tor.handshake","role":"variant","variant":"tor-hello+tor-cert","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "tor.handshake",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "go-hello+probe-cert",
+        "role": "baseline",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "tor.handshake",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "go-hello+tor-cert",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "tor.handshake",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "tor-hello+probe-cert",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 1
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tor.handshake",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "tor-hello+tor-cert",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 1
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tor.handshake",
+        "transport": "tcp",
+        "port": 9001,
+        "variant": "go-hello+probe-cert",
+        "role": "baseline",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "tor.handshake",
+        "transport": "tcp",
+        "port": 9001,
+        "variant": "go-hello+tor-cert",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 1
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tor.handshake",
+        "transport": "tcp",
+        "port": 9001,
+        "variant": "tor-hello+probe-cert",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 1
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tor.handshake",
+        "transport": "tcp",
+        "port": 9001,
+        "variant": "tor-hello+tor-cert",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 1
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "tor_handshake_blocking_suspected",
+        "subject": "tor.handshake tcp/443 tor-hello+probe-cert",
+        "confidence": "low",
+        "evidence": [
+          "tor.handshake tcp/443 tor-hello+probe-cert: 0/1 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing baseline: tor.handshake tcp/443 go-hello+probe-cert: 1/1 ok, dominant=ok, server_saw=1",
+          "the tor ClientHello alone fails while the relay certificate with a plain hello passes: the rule keys on the ClientHello (no SNI + tor cipher list)"
+        ]
+      },
+      {
+        "kind": "tor_handshake_blocking_suspected",
+        "subject": "tor.handshake tcp/443 tor-hello+tor-cert",
+        "confidence": "low",
+        "evidence": [
+          "tor.handshake tcp/443 tor-hello+tor-cert: 0/1 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing baseline: tor.handshake tcp/443 go-hello+probe-cert: 1/1 ok, dominant=ok, server_saw=1",
+          "the tor ClientHello alone fails while the relay certificate with a plain hello passes: the rule keys on the ClientHello (no SNI + tor cipher list)"
+        ]
+      },
+      {
+        "kind": "tor_handshake_blocking_suspected",
+        "subject": "tor.handshake tcp/9001 go-hello+tor-cert",
+        "confidence": "low",
+        "evidence": [
+          "tor.handshake tcp/9001 go-hello+tor-cert: 0/1 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing baseline: tor.handshake tcp/9001 go-hello+probe-cert: 1/1 ok, dominant=ok, server_saw=1",
+          "both the tor ClientHello alone and the relay certificate alone fail: two independent rules, or a rule on either feature"
+        ]
+      },
+      {
+        "kind": "tor_handshake_blocking_suspected",
+        "subject": "tor.handshake tcp/9001 tor-hello+probe-cert",
+        "confidence": "low",
+        "evidence": [
+          "tor.handshake tcp/9001 tor-hello+probe-cert: 0/1 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing baseline: tor.handshake tcp/9001 go-hello+probe-cert: 1/1 ok, dominant=ok, server_saw=1",
+          "both the tor ClientHello alone and the relay certificate alone fail: two independent rules, or a rule on either feature"
+        ]
+      },
+      {
+        "kind": "tor_handshake_blocking_suspected",
+        "subject": "tor.handshake tcp/9001 tor-hello+tor-cert",
+        "confidence": "low",
+        "evidence": [
+          "tor.handshake tcp/9001 tor-hello+tor-cert: 0/1 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing baseline: tor.handshake tcp/9001 go-hello+probe-cert: 1/1 ok, dominant=ok, server_saw=1",
+          "both the tor ClientHello alone and the relay certificate alone fail: two independent rules, or a rule on either feature"
+        ]
+      }
+    ],
+    "summary": "low confidence only: tor_handshake_blocking_suspected×5"
+  }
+}

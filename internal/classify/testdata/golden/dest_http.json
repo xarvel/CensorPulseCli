@@ -1,0 +1,369 @@
+{
+  "mode": "standalone",
+  "attempts": [
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.dns","role":"variant","variant":"claude.ai","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"ai","domain":"claude.ai","order":"3"}},
+    {"test":"dest.tcp","role":"variant","variant":"claude.ai","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"ai","domain":"claude.ai","order":"3"}},
+    {"test":"dest.tls","role":"variant","variant":"claude.ai","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"ai","domain":"claude.ai","order":"3"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:claude.ai","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"ai","domain":"claude.ai","order":"3"}},
+    {"test":"dest.http","role":"variant","variant":"claude.ai","transport":"tcp","port":443,"outcome":"http_legal_block","merged":"http_legal_block","detail":{"category":"ai","domain":"claude.ai","order":"3"}},
+    {"test":"dest.dns","role":"variant","variant":"claude.ai","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"ai","domain":"claude.ai","order":"3"}},
+    {"test":"dest.tcp","role":"variant","variant":"claude.ai","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"ai","domain":"claude.ai","order":"3"}},
+    {"test":"dest.tls","role":"variant","variant":"claude.ai","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"ai","domain":"claude.ai","order":"3"}},
+    {"test":"dest.tls","role":"control","variant":"decoy:claude.ai","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"ai","domain":"claude.ai","order":"3"}},
+    {"test":"dest.http","role":"variant","variant":"claude.ai","transport":"tcp","port":443,"outcome":"http_legal_block","merged":"http_legal_block","detail":{"category":"ai","domain":"claude.ai","order":"3"}},
+    {"test":"dest.tls","role":"variant","variant":"one.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"ai","domain":"one.example","order":"2"}},
+    {"test":"dest.http","role":"variant","variant":"one.example","transport":"tcp","port":443,"outcome":"http_legal_block","merged":"http_legal_block","detail":{"category":"ai","domain":"one.example","order":"2"}},
+    {"test":"dest.tls","role":"variant","variant":"badcert.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"badcert.example","order":"1"}},
+    {"test":"dest.http","role":"variant","variant":"badcert.example","transport":"tcp","port":443,"outcome":"cert_mismatch","merged":"cert_mismatch","detail":{"category":"news","domain":"badcert.example","order":"1"}},
+    {"test":"dest.dns","role":"variant","variant":"gone.example","transport":"udp","port":53,"outcome":"dns_rcode","merged":"dns_rcode","detail":{"category":"news","domain":"gone.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"gone.example","transport":"tcp","port":443,"outcome":"skipped","merged":"skipped","detail":{"category":"news","domain":"gone.example"}},
+    {"test":"dest.dns","role":"variant","variant":"unknown.example","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"unknown.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"unknown.example","transport":"tcp","port":443,"outcome":"inconclusive","merged":"inconclusive","detail":{"category":"news","domain":"unknown.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"flaky.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"flaky.example"}},
+    {"test":"dest.tcp","role":"variant","variant":"flaky.example","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"connect_timeout","detail":{"category":"news","domain":"flaky.example"}}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "claude.ai",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "gone.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "dns_rcode": 1
+        },
+        "merged": {
+          "dns_rcode": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "unknown.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.http",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "badcert.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "cert_mismatch": 1
+        },
+        "merged": {
+          "cert_mismatch": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.http",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "claude.ai",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "http_legal_block": 2
+        },
+        "merged": {
+          "http_legal_block": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.http",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "one.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "http_legal_block": 1
+        },
+        "merged": {
+          "http_legal_block": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "anycast",
+        "role": "control",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "claude.ai",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "flaky.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 1,
+        "outcomes": {
+          "connect_timeout": 1,
+          "ok": 1
+        },
+        "merged": {
+          "connect_timeout": 1,
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "gone.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "skipped": 1
+        },
+        "merged": {
+          "skipped": 1
+        },
+        "server_saw": 0,
+        "unmeasured": 1
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "unknown.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "inconclusive": 1
+        },
+        "merged": {
+          "inconclusive": 1
+        },
+        "server_saw": 0,
+        "unmeasured": 1
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "badcert.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "claude.ai",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "decoy:claude.ai",
+        "role": "control",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tls",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "one.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "dest_legal_block_suspected",
+        "subject": "dest.http tcp/443 claude.ai",
+        "confidence": "medium",
+        "evidence": [
+          "dest.http tcp/443 claude.ai: 0/2 ok, dominant=http_legal_block",
+          "passing control: TLS handshake dest.tls tcp/443 claude.ai: 2/2 ok, dominant=ok",
+          "HTTP 451 from the service after a clean handshake: the service refuses the region, the network did not interfere"
+        ]
+      },
+      {
+        "kind": "dest_legal_block_suspected",
+        "subject": "dest.http tcp/443 one.example",
+        "confidence": "low",
+        "evidence": [
+          "dest.http tcp/443 one.example: 0/1 ok, dominant=http_legal_block",
+          "passing control: TLS handshake dest.tls tcp/443 one.example: 1/1 ok, dominant=ok",
+          "HTTP 451 from the service after a clean handshake: the service refuses the region, the network did not interfere"
+        ]
+      },
+      {
+        "kind": "dest_tls_interception_suspected",
+        "subject": "dest.http tcp/443 badcert.example",
+        "confidence": "low",
+        "evidence": [
+          "dest.http tcp/443 badcert.example: 0/1 ok, dominant=cert_mismatch",
+          "the certificate presented for the real name does not verify against the system roots while the handshake itself completes: interception, or a broken chain on the site"
+        ]
+      }
+    ],
+    "summary": "dest_legal_block_suspected×1; low confidence: dest_legal_block_suspected×1, dest_tls_interception_suspected×1",
+    "destinations": [
+      {
+        "domain": "badcert.example",
+        "category": "news",
+        "verdict": "dest_tls_interception_suspected",
+        "confidence": "low",
+        "layers": {
+          "http": "cert_mismatch",
+          "tls": "ok"
+        }
+      },
+      {
+        "domain": "one.example",
+        "category": "ai",
+        "verdict": "dest_legal_block_suspected",
+        "confidence": "low",
+        "layers": {
+          "http": "http_legal_block",
+          "tls": "ok"
+        }
+      },
+      {
+        "domain": "claude.ai",
+        "category": "ai",
+        "verdict": "dest_legal_block_suspected",
+        "confidence": "medium",
+        "layers": {
+          "decoy": "ok",
+          "dns": "ok",
+          "http": "http_legal_block",
+          "tcp": "ok",
+          "tls": "ok"
+        }
+      },
+      {
+        "domain": "flaky.example",
+        "category": "news",
+        "verdict": "degraded",
+        "layers": {
+          "tcp": "mixed:connect_timeout"
+        }
+      },
+      {
+        "domain": "gone.example",
+        "category": "news",
+        "verdict": "nxdomain",
+        "layers": {
+          "dns": "dns_rcode",
+          "tcp": "skipped"
+        }
+      },
+      {
+        "domain": "unknown.example",
+        "category": "news",
+        "verdict": "inconclusive",
+        "layers": {
+          "dns": "ok",
+          "tcp": "inconclusive"
+        }
+      }
+    ]
+  }
+}

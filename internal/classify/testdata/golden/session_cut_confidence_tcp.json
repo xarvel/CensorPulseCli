@@ -1,0 +1,80 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"openvpn.reset","role":"variant","variant":"tcp+tls-auth","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"openvpn.reset","role":"variant","variant":"tcp+tls-auth","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"openvpn.reset","role":"variant","variant":"tcp+tls-auth","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"openvpn.session","role":"variant","variant":"tcp+tls-auth+data","transport":"tcp","port":443,"outcome":"session_cut","merged":"uplink_drop_after_handshake","server":true},
+    {"test":"openvpn.session","role":"variant","variant":"tcp+tls-auth+data","transport":"tcp","port":443,"outcome":"session_cut","merged":"uplink_drop_after_handshake","server":true},
+    {"test":"openvpn.session","role":"variant","variant":"tcp+tls-auth+data","transport":"tcp","port":443,"outcome":"session_cut","merged":"uplink_drop_after_handshake","server":true}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "openvpn.reset",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "tcp+tls-auth",
+        "role": "variant",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "openvpn.session",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "tcp+tls-auth+data",
+        "role": "variant",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "session_cut": 3
+        },
+        "merged": {
+          "uplink_drop_after_handshake": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "openvpn_session_cut_suspected",
+        "subject": "openvpn.session tcp/443 tcp+tls-auth+data",
+        "confidence": "high",
+        "evidence": [
+          "openvpn.session tcp/443 tcp+tls-auth+data: 0/3 ok, dominant=uplink_drop_after_handshake, server_saw=3",
+          "handshake on the same port passed: openvpn.reset tcp/443 tcp+tls-auth: 3/3 ok, dominant=ok, server_saw=3",
+          "baseline on the same port passed: tcp.echo tcp/443 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      }
+    ],
+    "summary": "openvpn_session_cut_suspected×1"
+  }
+}

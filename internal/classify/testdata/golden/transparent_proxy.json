@@ -1,0 +1,192 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":1194,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":1194,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":1194,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":80,"outcome":"payload_timeout","merged":"downlink_drop","server":true,"connect_ms":3},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":80,"outcome":"payload_timeout","merged":"downlink_drop","server":true,"connect_ms":3},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":80,"outcome":"payload_timeout","merged":"downlink_drop","server":true,"connect_ms":3},
+    {"test":"http.host","role":"baseline","variant":"benign","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true,"connect_ms":3.2},
+    {"test":"http.host","role":"baseline","variant":"benign","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true,"connect_ms":3.2},
+    {"test":"http.host","role":"baseline","variant":"benign","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true,"connect_ms":3.2},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":8080,"outcome":"payload_timeout","merged":"uplink_delayed_past_deadline","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":8080,"outcome":"payload_timeout","merged":"uplink_delayed_past_deadline","server":true},
+    {"test":"tls.sni","role":"baseline","variant":"benign","transport":"tcp","port":8080,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tls.sni","role":"baseline","variant":"benign","transport":"tcp","port":8080,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":53,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"dns.udp","role":"baseline","variant":"TXT","transport":"udp","port":53,"outcome":"ok","merged":"ok","server":true}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "dns.udp",
+        "transport": "udp",
+        "port": 53,
+        "variant": "TXT",
+        "role": "baseline",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "http.host",
+        "transport": "tcp",
+        "port": 80,
+        "variant": "benign",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 1194,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 80,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 3
+        },
+        "merged": {
+          "downlink_drop": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 8080,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "uplink_delayed_past_deadline": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tls.sni",
+        "transport": "tcp",
+        "port": 8080,
+        "variant": "benign",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 53,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 1
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "transparent_proxy_suspected",
+        "subject": "tcp/80",
+        "confidence": "high",
+        "evidence": [
+          "tcp.echo tcp/80 cp1-64: 0/3 ok, dominant=downlink_drop, server_saw=3",
+          "but on the same port: http.host tcp/80 benign: 3/3 ok, dominant=ok, server_saw=3",
+          "the server received the opaque payload and answered; the answer never arrived: the path relays only traffic it can parse",
+          "median connect on this port 3.2 ms",
+          "passing echo elsewhere: tcp.echo tcp/1194 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      },
+      {
+        "kind": "transparent_proxy_suspected",
+        "subject": "tcp/8080",
+        "confidence": "medium",
+        "evidence": [
+          "tcp.echo tcp/8080 cp1-64: 0/2 ok, dominant=uplink_delayed_past_deadline, server_saw=2",
+          "but on the same port: tls.sni tcp/8080 benign: 2/2 ok, dominant=ok, server_saw=2",
+          "the server received the opaque payload only after the client had given up: the path held the flow instead of relaying it",
+          "passing echo elsewhere: tcp.echo tcp/1194 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      },
+      {
+        "kind": "transparent_proxy_suspected",
+        "subject": "udp/53",
+        "confidence": "low",
+        "evidence": [
+          "udp.echo udp/53 cp1-64: 0/1 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "but on the same port: dns.udp udp/53 TXT: 1/1 ok, dominant=ok, server_saw=1",
+          "passing echo elsewhere: udp.echo udp/443 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      }
+    ],
+    "summary": "transparent_proxy_suspected×2; low confidence: transparent_proxy_suspected×1"
+  }
+}

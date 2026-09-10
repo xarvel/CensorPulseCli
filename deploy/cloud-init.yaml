@@ -1,0 +1,39 @@
+#cloud-config
+# Bootstraps a fresh Ubuntu 24.04 VM (arm64 or amd64) as a CensorPulse
+# control point: installs Docker, clones the repo, starts the probe.
+#
+# Usage (AWS example):
+#   aws ec2 run-instances --image-id <ubuntu-24.04> --instance-type t4g.nano \
+#     --security-group-ids <sg with the probe ports> --user-data file://cloud-init.yaml
+#
+# Replace the SSH public key placeholder below before use. The repository and
+# branch default to github.com/xarvel/CensorPulseCli @ main; override them by
+# setting CP_REPO / CP_BRANCH in the bootstrap script's environment.
+# The `probe` user gets passwordless sudo and the docker group (both mean
+# root-equivalent access; lock it down after the first login if needed).
+package_update: true
+packages: [git, ca-certificates, curl]
+
+users:
+  - name: probe
+    groups: [sudo, docker]
+    shell: /bin/bash
+    sudo: "ALL=(ALL) NOPASSWD:ALL"
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAA... replace-with-your-public-key
+
+write_files:
+  - path: /opt/censorpulse/bootstrap.sh
+    permissions: "0755"
+    content: |
+      #!/usr/bin/env bash
+      set -euo pipefail
+      REPO="${CP_REPO:-https://github.com/xarvel/CensorPulseCli.git}"
+      BRANCH="${CP_BRANCH:-main}"
+      git clone --depth 1 -b "$BRANCH" "$REPO" /opt/censorpulse/repo
+      cd /opt/censorpulse/repo
+      # installs Docker, frees port 53, starts docker compose, prints the pin
+      sh scripts/install-server.sh | tee /opt/censorpulse/install.log
+
+runcmd:
+  - [bash, /opt/censorpulse/bootstrap.sh]

@@ -1,0 +1,266 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.packets","role":"variant","variant":"plain-2B","transport":"tcp","port":443,"outcome":"packets_cut","merged":"downlink_drop_after_handshake","server":true,"detail":{"packets_planned":"64","packets_sent":"24"}},
+    {"test":"tcp.packets","role":"variant","variant":"plain-2B","transport":"tcp","port":443,"outcome":"packets_cut","merged":"downlink_drop_after_handshake","server":true,"detail":{"packets_planned":"64","packets_sent":"26"}},
+    {"test":"tcp.packets","role":"variant","variant":"plain-2B","transport":"tcp","port":443,"outcome":"packets_cut","merged":"downlink_drop_after_handshake","server":true,"detail":{"packets_planned":"64","packets_sent":"25"}},
+    {"test":"tcp.bulk","role":"baseline","variant":"up-plain","transport":"tcp","port":443,"outcome":"bulk_stall","merged":"downlink_drop","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.packets","role":"variant","variant":"plain-2B","transport":"tcp","port":80,"outcome":"packets_cut","merged":"downlink_drop_after_handshake","server":true},
+    {"test":"tcp.bulk","role":"baseline","variant":"up-plain","transport":"tcp","port":80,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.packets","role":"variant","variant":"cp1-32x32","transport":"udp","port":443,"outcome":"packets_cut","merged":"downlink_drop_after_handshake","server":true,"detail":{"packets_acked":"20","packets_planned":"32","packets_sent":"32"}},
+    {"test":"udp.packets","role":"variant","variant":"cp1-32x32","transport":"udp","port":443,"outcome":"packets_cut","merged":"downlink_drop_after_handshake","server":true,"detail":{"packets_acked":"20","packets_planned":"32","packets_sent":"32"}},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":51820,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.packets","role":"variant","variant":"cp1-32x32","transport":"udp","port":51820,"outcome":"packets_cut","merged":"downlink_drop_after_handshake","server":true,"detail":{"packets_planned":"32","packets_sent":"32"}},
+    {"test":"tcp.packets","role":"variant","variant":"plain-2B","transport":"tcp","port":8080,"outcome":"packets_cut","merged":"downlink_drop_after_handshake","server":true,"detail":{"packets_planned":"64","packets_sent":"25"}}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "tcp.bulk",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "up-plain",
+        "role": "baseline",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "bulk_stall": 1
+        },
+        "merged": {
+          "downlink_drop": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "tcp.bulk",
+        "transport": "tcp",
+        "port": 80,
+        "variant": "up-plain",
+        "role": "baseline",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 80,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "tcp.packets",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "plain-2B",
+        "role": "variant",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "packets_cut": 3
+        },
+        "merged": {
+          "downlink_drop_after_handshake": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "tcp.packets",
+        "transport": "tcp",
+        "port": 80,
+        "variant": "plain-2B",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "packets_cut": 1
+        },
+        "merged": {
+          "downlink_drop_after_handshake": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "tcp.packets",
+        "transport": "tcp",
+        "port": 8080,
+        "variant": "plain-2B",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "packets_cut": 1
+        },
+        "merged": {
+          "downlink_drop_after_handshake": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 51820,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "udp.packets",
+        "transport": "udp",
+        "port": 443,
+        "variant": "cp1-32x32",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "packets_cut": 2
+        },
+        "merged": {
+          "downlink_drop_after_handshake": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "udp.packets",
+        "transport": "udp",
+        "port": 51820,
+        "variant": "cp1-32x32",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "packets_cut": 1
+        },
+        "merged": {
+          "downlink_drop_after_handshake": 1
+        },
+        "server_saw": 1
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "bulk_transfer_cut_suspected",
+        "subject": "tcp.bulk tcp/443 up-plain",
+        "confidence": "low",
+        "evidence": [
+          "tcp.bulk tcp/443 up-plain: 0/1 ok, dominant=downlink_drop, server_saw=1",
+          "transfer stopped at unknown",
+          "short exchange on the same port passed: tcp.echo tcp/443 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      },
+      {
+        "kind": "packet_count_cut_suspected",
+        "subject": "tcp.packets tcp/443 plain-2B",
+        "confidence": "high",
+        "evidence": [
+          "tcp.packets tcp/443 plain-2B: 0/3 ok, dominant=downlink_drop_after_handshake, server_saw=3",
+          "one-packet echo on the same port passed: tcp.echo tcp/443 cp1-64: 3/3 ok, dominant=ok, server_saw=3",
+          "segments written: median 25 of 64; the reply never came",
+          "tcp.bulk on the same port was cut as well: the limit is consistent with a per-flow packet count (about 16 KB of 4 KB chunks is also ~25 packets)"
+        ]
+      },
+      {
+        "kind": "packet_count_cut_suspected",
+        "subject": "tcp.packets tcp/80 plain-2B",
+        "confidence": "low",
+        "evidence": [
+          "tcp.packets tcp/80 plain-2B: 0/1 ok, dominant=downlink_drop_after_handshake, server_saw=1",
+          "one-packet echo on the same port passed: tcp.echo tcp/80 cp1-64: 1/1 ok, dominant=ok, server_saw=1",
+          "tcp.bulk (tens of KB in 4 KB chunks) passed on the same port: only a flow of many small packets trips it"
+        ]
+      },
+      {
+        "kind": "packet_count_cut_suspected",
+        "subject": "udp.packets udp/443 cp1-32x32",
+        "confidence": "medium",
+        "evidence": [
+          "udp.packets udp/443 cp1-32x32: 0/2 ok, dominant=downlink_drop_after_handshake, server_saw=2",
+          "one-packet echo on the same port passed: udp.echo udp/443 cp1-64: 2/2 ok, dominant=ok, server_saw=2",
+          "datagrams answered before the cut: median 20 of 32"
+        ]
+      },
+      {
+        "kind": "packet_count_cut_suspected",
+        "subject": "udp.packets udp/51820 cp1-32x32",
+        "confidence": "low",
+        "evidence": [
+          "udp.packets udp/51820 cp1-32x32: 0/1 ok, dominant=downlink_drop_after_handshake, server_saw=1",
+          "one-packet echo on the same port passed: udp.echo udp/51820 cp1-64: 1/1 ok, dominant=ok, server_saw=1",
+          "segments written: median 32 of 32; the reply never came"
+        ]
+      },
+      {
+        "kind": "protocol_blocking_suspected",
+        "subject": "tcp.bulk tcp/443",
+        "confidence": "low",
+        "evidence": [
+          "tcp.bulk tcp/443 up-plain: 0/1 ok, dominant=downlink_drop, server_saw=1",
+          "passing echo control: tcp.echo tcp/443 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      }
+    ],
+    "summary": "packet_count_cut_suspected×2; low confidence: bulk_transfer_cut_suspected×1, packet_count_cut_suspected×2, protocol_blocking_suspected×1"
+  }
+}

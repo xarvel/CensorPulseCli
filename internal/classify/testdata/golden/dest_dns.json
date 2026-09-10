@@ -1,0 +1,204 @@
+{
+  "mode": "standalone",
+  "attempts": [
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.nxdomain","role":"control","variant":"invalid","transport":"udp","port":53,"outcome":"dns_answer_mismatch","merged":"dns_answer_mismatch"},
+    {"test":"dest.nxdomain","role":"control","variant":"invalid","transport":"udp","port":53,"outcome":"dns_answer_mismatch","merged":"dns_answer_mismatch"},
+    {"test":"dest.dns","role":"variant","variant":"other.example","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"other.example"}},
+    {"test":"dest.dns","role":"variant","variant":"other.example","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"other.example"}},
+    {"test":"dest.dns","role":"baseline","variant":"wikipedia.org","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"control","domain":"wikipedia.org"}},
+    {"test":"dest.dns","role":"baseline","variant":"wikipedia.org","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"control","domain":"wikipedia.org"}},
+    {"test":"dest.dns","role":"variant","variant":"meduza.io","transport":"udp","port":53,"outcome":"dns_answer_mismatch","merged":"dns_answer_mismatch","detail":{"category":"news","domain":"meduza.io"}},
+    {"test":"dest.tcp","role":"variant","variant":"meduza.io","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"meduza.io"}},
+    {"test":"dest.dns","role":"variant","variant":"meduza.io","transport":"udp","port":53,"outcome":"dns_answer_mismatch","merged":"dns_answer_mismatch","detail":{"category":"news","domain":"meduza.io"}},
+    {"test":"dest.tcp","role":"variant","variant":"meduza.io","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"news","domain":"meduza.io"}},
+    {"test":"dest.dns","role":"variant","variant":"slow.example","transport":"udp","port":53,"outcome":"dns_timeout","merged":"dns_timeout","detail":{"category":"news","domain":"slow.example"}}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "meduza.io",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "dns_answer_mismatch": 2
+        },
+        "merged": {
+          "dns_answer_mismatch": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "other.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "slow.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "dns_timeout": 1
+        },
+        "merged": {
+          "dns_timeout": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "wikipedia.org",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.nxdomain",
+        "transport": "udp",
+        "port": 53,
+        "variant": "invalid",
+        "role": "control",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "dns_answer_mismatch": 2
+        },
+        "merged": {
+          "dns_answer_mismatch": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "anycast",
+        "role": "control",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "meduza.io",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "dest_dns_poisoning_suspected",
+        "subject": "dest.dns udp/53 meduza.io",
+        "confidence": "medium",
+        "evidence": [
+          "dest.dns udp/53 meduza.io: 0/2 ok, dominant=dns_answer_mismatch",
+          "passing control: dest.dns udp/53 wikipedia.org: 2/2 ok, dominant=ok",
+          "the system resolver's answer for this name is not the one the trusted resolvers give and does not serve; a control site resolves cleanly"
+        ]
+      },
+      {
+        "kind": "dest_dns_poisoning_suspected",
+        "subject": "dest.dns udp/53 slow.example",
+        "confidence": "low",
+        "evidence": [
+          "dest.dns udp/53 slow.example: 0/1 ok, dominant=dns_timeout",
+          "the system resolver timed out for this name only while the trusted resolvers answered; other names resolved: a per-name blackhole in the resolver, or loss",
+          "passing control: dest.tcp tcp/443 anycast: 2/2 ok, dominant=ok"
+        ]
+      },
+      {
+        "kind": "nxdomain_hijack_suspected",
+        "subject": "dest.nxdomain udp/53 invalid",
+        "confidence": "medium",
+        "evidence": [
+          "dest.nxdomain udp/53 invalid: 0/2 ok, dominant=dns_answer_mismatch",
+          "a fresh name under the reserved .invalid TLD was answered with an address: the resolver invents answers (search/ad redirection, captive portal or a sinkhole)"
+        ]
+      }
+    ],
+    "summary": "dest_dns_poisoning_suspected×1, nxdomain_hijack_suspected×1; low confidence: dest_dns_poisoning_suspected×1",
+    "destinations": [
+      {
+        "domain": "meduza.io",
+        "category": "news",
+        "verdict": "dest_dns_poisoning_suspected",
+        "confidence": "medium",
+        "layers": {
+          "dns": "dns_answer_mismatch",
+          "tcp": "ok"
+        }
+      },
+      {
+        "domain": "other.example",
+        "category": "news",
+        "verdict": "inconclusive",
+        "layers": {
+          "dns": "ok"
+        }
+      },
+      {
+        "domain": "slow.example",
+        "category": "news",
+        "verdict": "dest_dns_poisoning_suspected",
+        "confidence": "low",
+        "layers": {
+          "dns": "dns_timeout"
+        }
+      },
+      {
+        "domain": "wikipedia.org",
+        "category": "control",
+        "verdict": "inconclusive",
+        "layers": {
+          "dns": "ok"
+        }
+      }
+    ]
+  }
+}

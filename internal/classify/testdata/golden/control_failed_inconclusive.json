@@ -1,0 +1,131 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.payload.random","role":"control","variant":"random-64","transport":"udp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"udp.payload.random","role":"control","variant":"random-64","transport":"udp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"quic.v1","role":"variant","variant":"h3","transport":"udp","port":443,"outcome":"quic_no_response","merged":"uplink_drop_or_route_failure"},
+    {"test":"quic.v1","role":"variant","variant":"h3","transport":"udp","port":443,"outcome":"quic_no_response","merged":"uplink_drop_or_route_failure"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.payload.random","role":"control","variant":"random-64","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tcp.payload.random","role":"control","variant":"random-64","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"vless.reality","role":"control","variant":"benign","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"vless.reality","role":"control","variant":"benign","transport":"tcp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "quic.v1",
+        "transport": "udp",
+        "port": 443,
+        "variant": "h3",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "quic_no_response": 2
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "tcp.payload.random",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "random-64",
+        "role": "control",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "udp.payload.random",
+        "transport": "udp",
+        "port": 443,
+        "variant": "random-64",
+        "role": "control",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "vless.reality",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "benign",
+        "role": "control",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 2
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "control_failed_inconclusive",
+        "subject": "quic.v1 udp/443 h3",
+        "confidence": "low",
+        "evidence": [
+          "quic.v1 udp/443 h3: 0/2 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "random-payload control also failed on this port: udp.payload.random udp/443 random-64: 0/2 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "echo passed: udp.echo udp/443 cp1-64: 2/2 ok, dominant=ok, server_saw=2"
+        ]
+      }
+    ],
+    "summary": "low confidence only: control_failed_inconclusive×1"
+  }
+}

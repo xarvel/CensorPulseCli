@@ -1,0 +1,58 @@
+{
+  "mode": "standalone",
+  "attempts": [
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.nxdomain","role":"control","variant":"invalid","transport":"udp","port":53,"outcome":"dns_answer_mismatch","merged":"dns_answer_mismatch"},
+    {"test":"dest.nxdomain","role":"control","variant":"invalid","transport":"udp","port":53,"outcome":"dns_answer_mismatch","merged":"dns_answer_mismatch"}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "dest.nxdomain",
+        "transport": "udp",
+        "port": 53,
+        "variant": "invalid",
+        "role": "control",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "dns_answer_mismatch": 2
+        },
+        "merged": {
+          "dns_answer_mismatch": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "anycast",
+        "role": "control",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "nxdomain_hijack_suspected",
+        "subject": "dest.nxdomain udp/53 invalid",
+        "confidence": "medium",
+        "evidence": [
+          "dest.nxdomain udp/53 invalid: 0/2 ok, dominant=dns_answer_mismatch",
+          "a fresh name under the reserved .invalid TLD was answered with an address: the resolver invents answers (search/ad redirection, captive portal or a sinkhole)"
+        ]
+      }
+    ],
+    "summary": "nxdomain_hijack_suspected×1"
+  }
+}

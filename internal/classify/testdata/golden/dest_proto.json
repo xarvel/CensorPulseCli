@@ -1,0 +1,320 @@
+{
+  "mode": "standalone",
+  "attempts": [
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.tcp","role":"control","variant":"anycast","transport":"tcp","port":443,"outcome":"ok","merged":"ok"},
+    {"test":"dest.dns","role":"variant","variant":"g.whatsapp.net","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"messenger","domain":"g.whatsapp.net","order":"1"}},
+    {"test":"dest.tcp","role":"variant","variant":"g.whatsapp.net","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"messenger","domain":"g.whatsapp.net","order":"1"}},
+    {"test":"dest.proto","role":"variant","variant":"g.whatsapp.net","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"messenger","domain":"g.whatsapp.net","order":"1","proto":"whatsapp"}},
+    {"test":"dest.dns","role":"variant","variant":"g.whatsapp.net","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"messenger","domain":"g.whatsapp.net","order":"1"}},
+    {"test":"dest.tcp","role":"variant","variant":"g.whatsapp.net","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"messenger","domain":"g.whatsapp.net","order":"1"}},
+    {"test":"dest.proto","role":"variant","variant":"g.whatsapp.net","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"messenger","domain":"g.whatsapp.net","order":"1","proto":"whatsapp"}},
+    {"test":"dest.dns","role":"variant","variant":"reset.example","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"messenger","domain":"reset.example","order":"2"}},
+    {"test":"dest.tcp","role":"variant","variant":"reset.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"messenger","domain":"reset.example","order":"2"}},
+    {"test":"dest.proto","role":"variant","variant":"reset.example","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"midstream_reset","detail":{"category":"messenger","domain":"reset.example","order":"2","proto":"whatsapp"}},
+    {"test":"dest.dns","role":"variant","variant":"reset.example","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"messenger","domain":"reset.example","order":"2"}},
+    {"test":"dest.tcp","role":"variant","variant":"reset.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"messenger","domain":"reset.example","order":"2"}},
+    {"test":"dest.proto","role":"variant","variant":"reset.example","transport":"tcp","port":443,"outcome":"midstream_reset","merged":"midstream_reset","detail":{"category":"messenger","domain":"reset.example","order":"2","proto":"whatsapp"}},
+    {"test":"dest.dns","role":"variant","variant":"proxied.example","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"messenger","domain":"proxied.example","order":"3"}},
+    {"test":"dest.tcp","role":"variant","variant":"proxied.example","transport":"tcp","port":443,"outcome":"ok","merged":"ok","detail":{"category":"messenger","domain":"proxied.example","order":"3"}},
+    {"test":"dest.proto","role":"variant","variant":"proxied.example","transport":"tcp","port":443,"outcome":"unexpected_response","merged":"unexpected_response","detail":{"category":"messenger","domain":"proxied.example","order":"3","proto":"whatsapp"}},
+    {"test":"dest.dns","role":"variant","variant":"silent.example","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"messenger","domain":"silent.example","order":"4"}},
+    {"test":"dest.tcp","role":"variant","variant":"silent.example","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"connect_timeout","detail":{"category":"messenger","domain":"silent.example","order":"4"}},
+    {"test":"dest.proto","role":"variant","variant":"silent.example","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"connect_timeout","detail":{"category":"messenger","domain":"silent.example","order":"4","proto":"whatsapp"}},
+    {"test":"dest.dns","role":"variant","variant":"silent.example","transport":"udp","port":53,"outcome":"ok","merged":"ok","detail":{"category":"messenger","domain":"silent.example","order":"4"}},
+    {"test":"dest.tcp","role":"variant","variant":"silent.example","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"connect_timeout","detail":{"category":"messenger","domain":"silent.example","order":"4"}},
+    {"test":"dest.proto","role":"variant","variant":"silent.example","transport":"tcp","port":443,"outcome":"connect_timeout","merged":"connect_timeout","detail":{"category":"messenger","domain":"silent.example","order":"4","proto":"whatsapp"}}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "g.whatsapp.net",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "proxied.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "reset.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.dns",
+        "transport": "udp",
+        "port": 53,
+        "variant": "silent.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.proto",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "g.whatsapp.net",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.proto",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "proxied.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "unexpected_response": 1
+        },
+        "merged": {
+          "unexpected_response": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.proto",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "reset.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "midstream_reset": 2
+        },
+        "merged": {
+          "midstream_reset": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.proto",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "silent.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "connect_timeout": 2
+        },
+        "merged": {
+          "connect_timeout": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "anycast",
+        "role": "control",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "g.whatsapp.net",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "proxied.example",
+        "role": "variant",
+        "total": 1,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1
+        },
+        "merged": {
+          "ok": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "reset.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2
+        },
+        "merged": {
+          "ok": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "dest.tcp",
+        "transport": "tcp",
+        "port": 443,
+        "variant": "silent.example",
+        "role": "variant",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "connect_timeout": 2
+        },
+        "merged": {
+          "connect_timeout": 2
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "dest_proto_blocking_suspected",
+        "subject": "dest.proto tcp/443 proxied.example",
+        "confidence": "low",
+        "evidence": [
+          "dest.proto tcp/443 proxied.example: 0/1 ok, dominant=unexpected_response",
+          "passing control: TCP connect dest.tcp tcp/443 proxied.example: 1/1 ok, dominant=ok",
+          "something other than the service answered the handshake: a block page or a proxy",
+          "TCP connects but the whatsapp handshake does not complete on the address: the path interferes with the service's own protocol"
+        ]
+      },
+      {
+        "kind": "dest_proto_blocking_suspected",
+        "subject": "dest.proto tcp/443 reset.example",
+        "confidence": "medium",
+        "evidence": [
+          "dest.proto tcp/443 reset.example: 0/2 ok, dominant=midstream_reset",
+          "passing control: TCP connect dest.tcp tcp/443 reset.example: 2/2 ok, dominant=ok",
+          "TCP connects but the whatsapp handshake does not complete on the address: the path interferes with the service's own protocol"
+        ]
+      },
+      {
+        "kind": "dest_tcp_blackhole_suspected",
+        "subject": "dest.tcp tcp/443 silent.example",
+        "confidence": "medium",
+        "evidence": [
+          "dest.tcp tcp/443 silent.example: 0/2 ok, dominant=connect_timeout",
+          "passing control: dest.tcp tcp/443 anycast: 2/2 ok, dominant=ok",
+          "SYN to the site's address on :443 is never answered while a clean anycast address answers: the address (or prefix) is dropped"
+        ]
+      }
+    ],
+    "summary": "dest_proto_blocking_suspected×1, dest_tcp_blackhole_suspected×1; low confidence: dest_proto_blocking_suspected×1",
+    "destinations": [
+      {
+        "domain": "g.whatsapp.net",
+        "category": "messenger",
+        "verdict": "clear",
+        "layers": {
+          "dns": "ok",
+          "proto": "ok",
+          "tcp": "ok"
+        }
+      },
+      {
+        "domain": "reset.example",
+        "category": "messenger",
+        "verdict": "dest_proto_blocking_suspected",
+        "confidence": "medium",
+        "layers": {
+          "dns": "ok",
+          "proto": "midstream_reset",
+          "tcp": "ok"
+        }
+      },
+      {
+        "domain": "proxied.example",
+        "category": "messenger",
+        "verdict": "dest_proto_blocking_suspected",
+        "confidence": "low",
+        "layers": {
+          "dns": "ok",
+          "proto": "unexpected_response",
+          "tcp": "ok"
+        }
+      },
+      {
+        "domain": "silent.example",
+        "category": "messenger",
+        "verdict": "dest_tcp_blackhole_suspected",
+        "confidence": "medium",
+        "layers": {
+          "dns": "ok",
+          "proto": "connect_timeout",
+          "tcp": "connect_timeout"
+        }
+      }
+    ]
+  }
+}

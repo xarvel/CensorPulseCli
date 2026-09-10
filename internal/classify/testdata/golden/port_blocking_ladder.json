@@ -1,0 +1,182 @@
+{
+  "mode": "server",
+  "attempts": [
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":1194,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":1194,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":1194,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":80,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":80,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":80,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":8080,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":8080,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":8388,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":9001,"outcome":"ok","merged":"ok","server":true},
+    {"test":"tcp.echo","role":"baseline","variant":"cp1-64","transport":"tcp","port":9001,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"ok","merged":"ok","server":true},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":443,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":51820,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":51820,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"},
+    {"test":"udp.echo","role":"baseline","variant":"cp1-64","transport":"udp","port":51820,"outcome":"payload_timeout","merged":"uplink_drop_or_route_failure"}
+  ],
+  "flagged_transient": [],
+  "want": {
+    "cells": [
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 1194,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 3,
+        "outcomes": {
+          "ok": 3
+        },
+        "merged": {
+          "ok": 3
+        },
+        "server_saw": 3
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 80,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 3
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 3
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 8080,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 2
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 2
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 8388,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 1,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 1
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 0
+      },
+      {
+        "test_id": "tcp.echo",
+        "transport": "tcp",
+        "port": 9001,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 2,
+        "ok": 1,
+        "outcomes": {
+          "ok": 1,
+          "payload_timeout": 1
+        },
+        "merged": {
+          "ok": 1,
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 1
+      },
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 443,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 2,
+        "outcomes": {
+          "ok": 2,
+          "payload_timeout": 1
+        },
+        "merged": {
+          "ok": 2,
+          "uplink_drop_or_route_failure": 1
+        },
+        "server_saw": 2
+      },
+      {
+        "test_id": "udp.echo",
+        "transport": "udp",
+        "port": 51820,
+        "variant": "cp1-64",
+        "role": "baseline",
+        "total": 3,
+        "ok": 0,
+        "outcomes": {
+          "payload_timeout": 3
+        },
+        "merged": {
+          "uplink_drop_or_route_failure": 3
+        },
+        "server_saw": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "kind": "port_blocking_suspected",
+        "subject": "tcp/80",
+        "confidence": "high",
+        "evidence": [
+          "tcp.echo tcp/80 cp1-64: 0/3 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing control: tcp.echo tcp/1194 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      },
+      {
+        "kind": "port_blocking_suspected",
+        "subject": "tcp/8080",
+        "confidence": "medium",
+        "evidence": [
+          "tcp.echo tcp/8080 cp1-64: 0/2 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing control: tcp.echo tcp/1194 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      },
+      {
+        "kind": "port_blocking_suspected",
+        "subject": "tcp/8388",
+        "confidence": "low",
+        "evidence": [
+          "tcp.echo tcp/8388 cp1-64: 0/1 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing control: tcp.echo tcp/1194 cp1-64: 3/3 ok, dominant=ok, server_saw=3"
+        ]
+      },
+      {
+        "kind": "port_blocking_suspected",
+        "subject": "udp/51820",
+        "confidence": "medium",
+        "evidence": [
+          "udp.echo udp/51820 cp1-64: 0/3 ok, dominant=uplink_drop_or_route_failure, server_saw=0",
+          "passing control: udp.echo udp/443 cp1-64: 2/3 ok, dominant=ok, server_saw=2"
+        ]
+      }
+    ],
+    "summary": "port_blocking_suspected×3; low confidence: port_blocking_suspected×1"
+  }
+}
