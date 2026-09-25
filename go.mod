@@ -3,7 +3,7 @@ module github.com/xarvel/CensorPulseCli
 go 1.26.8
 
 require (
-	github.com/quic-go/quic-go v0.62.0
+	github.com/quic-go/quic-go v0.63.0
 	github.com/refraction-networking/utls v1.8.2
 	golang.org/x/crypto v0.57.0
 	golang.org/x/net v0.59.0
